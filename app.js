@@ -13,7 +13,7 @@
   const formatPct = (value) => `${value.toFixed(1)}%`;
   const formatIndex = (value) => value.toFixed(0);
   const total = (items, getter) => items.reduce((sum, item) => sum + getter(item), 0);
-  const categoryRaw = (item) => item.outlets * item.revenueWeight * item.anchorFit;
+  const categoryRaw = (item) => item.outlets;
   const maxCategoryRaw = Math.max(...data.categories.map(categoryRaw));
 
   data.categories.forEach((item) => {
@@ -24,7 +24,7 @@
 
   data.brands.forEach((brand) => {
     const category = categoryMap[brand.category];
-    brand.raw = brand.outlets * category.revenueWeight * category.anchorFit;
+    brand.raw = brand.outlets;
     brand.applications = category.applications;
   });
   const maxBrandRaw = Math.max(...data.brands.map((brand) => brand.raw));
@@ -90,7 +90,7 @@
 
     renderCities();
     const insight = state.category === "All"
-      ? "Beverage provides scale; pastry and dessert provide stronger modeled Anchor fit."
+      ? "Beverage provides the largest observed BI scale; Anchor relevance remains a calibration question."
       : `${state.category} has ${formatInt.format(categories[0].outlets)} observed outlets and ${formatPct(categories[0].qsrShare)} QSR concentration.`;
     document.querySelector("#overviewInsight").textContent = insight;
   }
@@ -121,7 +121,7 @@
         <div class="category-name"><strong>${item.name}</strong><small>${(item.outlets / 215960 * 100).toFixed(1)}% of Treats</small></div>
         <div class="metric-cell"><span>Observed outlets</span><strong>${formatInt.format(item.outlets)}</strong></div>
         <div class="metric-cell"><span>QSR share</span><strong>${formatPct(item.qsrShare)}</strong></div>
-        <div class="metric-cell"><span>OTM index</span><strong>${formatIndex(item.index)}</strong></div>
+        <div class="metric-cell"><span>Observed scale index</span><strong>${formatIndex(item.index)}</strong></div>
         <div class="metric-cell"><span>Top-5 sample share</span><strong>${formatPct(item.top5Share)}</strong></div>
         <div class="application-cell"><span>ANCHOR APPLICATION PLAY</span><strong>${item.applications.join(" · ")}</strong></div>
       </article>
@@ -156,7 +156,7 @@
     renderSignals("#flavorSignals", data.signals.flavor, 1);
     renderSignals("#processSignals", data.signals.process, 1);
     document.querySelector("#assumptionTable").innerHTML = selectedCategories().map((item) => `
-      <tr><td><strong>${item.name}</strong></td><td>${formatInt.format(item.outlets)}</td><td>${item.revenueWeight.toFixed(2)}</td><td>${item.anchorFit.toFixed(2)}</td><td><strong>${formatIndex(item.index)}</strong></td><td>${item.confidence}</td></tr>
+      <tr><td><strong>${item.name}</strong></td><td>${formatInt.format(item.outlets)}</td><td>${formatPct(item.qsrShare)}</td><td>${formatPct(item.top5Share)}</td><td><strong>Not calculated</strong></td><td>${item.otmStatus}</td></tr>
     `).join("");
   }
 
@@ -197,11 +197,11 @@
         <div class="eyebrow">TARGET DETAIL · SAMPLE RANK ${brand.rank}</div>
         <h2 class="dialog-title">${brand.name}</h2>
         <div class="dialog-subtitle">${brand.category} · national chain sample · 2026Q2</div>
-        <div class="dialog-score"><div><span>Opportunity index</span><strong>${formatIndex(brand.index)}</strong></div><div><span>Priority tier</span><strong>${brand.tier}</strong></div><div><span>Listed outlets</span><strong>${formatInt.format(brand.outlets)}</strong></div></div>
+        <div class="dialog-score"><div><span>Outlet scale index</span><strong>${formatIndex(brand.index)}</strong></div><div><span>Observed scale band</span><strong>${brand.tier}</strong></div><div><span>Listed outlets</span><strong>${formatInt.format(brand.outlets)}</strong></div></div>
         <dl class="detail-grid">
           <dt>Observed signal</dt><dd>${formatInt.format(brand.outlets)} listed outlets in the GAOYAN brand sample</dd>
-          <dt>Relative revenue weight</dt><dd>${category.revenueWeight.toFixed(2)} · v0 working assumption</dd>
-          <dt>Anchor fit factor</dt><dd>${category.anchorFit.toFixed(2)} · v0 working assumption</dd>
+          <dt>OTM score</dt><dd>Not calculated · required Philippines parameters are pending</dd>
+          <dt>Model basis</dt><dd>Original OTM formula retained; no substitute scoring formula is used</dd>
           <dt>Application play</dt><dd>${brand.applications.join(" · ")}</dd>
           <dt>Coverage status</dt><dd>Pending Anchor / distributor match</dd>
           <dt>Account owner</dt><dd>Pending</dd>
@@ -219,7 +219,7 @@
 
   function renderFilterSummary() {
     const category = state.category === "All" ? "All categories" : state.category;
-    const tier = state.tier === "All" ? "All priority tiers" : `Tier ${state.tier}`;
+    const tier = state.tier === "All" ? "All observed scale bands" : `Scale band ${state.tier}`;
     const search = state.search ? ` · Search “${state.search}”` : "";
     document.querySelector("#filterSummary").textContent = `${category} · ${tier}${search}`;
   }
@@ -244,12 +244,12 @@
   function exportTargets() {
     const rows = filteredBrands();
     const escapeCsv = (value) => `"${String(value).replaceAll('"', '""')}"`;
-    const header = ["rank", "brand", "category", "listed_outlets", "opportunity_index_v0", "tier", "recommended_applications", "client_data_status"];
+    const header = ["outlet_rank", "brand", "category", "listed_outlets", "observed_outlet_scale_index", "scale_band", "recommended_applications", "otm_status"];
     const lines = rows.map((brand) => [brand.rank, brand.name, brand.category, brand.outlets, formatIndex(brand.index), brand.tier, brand.applications.join(" | "), "Pending"].map(escapeCsv).join(","));
     const blob = new Blob([[header.join(","), ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "Anchor_PH_OTM_v0_filtered_targets.csv";
+    link.download = "Anchor_PH_BI_observed_brand_scale.csv";
     link.click();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   }
