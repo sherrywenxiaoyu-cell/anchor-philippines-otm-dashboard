@@ -1,6 +1,6 @@
-# Anchor Philippines OTM Dashboard v0
+# Anchor Philippines BI Market View + OTM Readiness v0.1
 
-This is a portable, offline-first prototype for prioritizing the Philippines Treats market for Anchor. It uses observed 2026Q2 market data and a transparent relative opportunity index. It does not contain Anchor sales, distributor coverage, outlet-level addresses, account owners, or calibrated PHP opportunity.
+This is a portable, offline-first view of observed Philippines Treats BI data plus an audited OTM readiness page. It no longer applies the earlier substitute formula based on revenue weights and Anchor fit assumptions. The original OTM formula is retained, but no Philippines OTM score is calculated until the required model and Anchor inputs are approved.
 
 ## Open the dashboard
 
@@ -21,18 +21,24 @@ Double-click `Start Anchor Philippines Dashboard.cmd`. Python 3 is required for 
 ## What is inside
 
 - Executive Overview: market size, QSR concentration, category priority and city clusters.
-- Category Opportunity: category economics proxy, top observed brands and application plays.
+- Category Opportunity: observed category scale, top brands and application plays.
 - Anchor Fit Diagnostics: material, flavor and process signals plus visible model assumptions.
-- Target Explorer: 15 observed chain samples ranked with a relative index and percentile tier.
-- Methodology & Data: formula, tier interpretation, audit trail, limitations and client data contract.
+- Target Explorer: 15 observed chain samples ranked only by BI outlet count; the normalized scale index is explicitly not OTM.
+- Methodology & Data: the original OTM formula, pending inputs, audit trail, limitations and client data contract.
 
-## OTM v0 formula
+## OTM formula retained from the original methodology
 
-`raw score = observed outlets × relative revenue weight × Anchor fit factor`
+`OTM Score = Revenue Proxy × Anchor Addressable Spend Ratio`
 
-`relative index = raw score ÷ highest raw score in the comparison set × 100`
+`Revenue Proxy = Outlet Count × Meals per Day × Avg Price per Meal × Days of Operating`
 
-The index is a prioritization tool, not a financial forecast. Tier A is the top 20% of the 15-brand sample; Tier B is the next 30%; Tier C is the next 30%; Tier D is the remaining 20%.
+`Meals per Day = Segment Baseline × Traffic Signal Index × Location Adjustment`
+
+`Traffic Signal Index = 50% Review Volume Index + 50% Rating Index`
+
+`Anchor Addressable Spend Ratio = Category Spend Ratio × Anchor Fit Coefficient`
+
+The dashboard does not calculate this score yet. The visible outlet scale index is only `listed outlets ÷ largest listed-outlet count × 100`; it is labeled as BI scale and must not be interpreted as OTM.
 
 ## Data files
 
@@ -56,4 +62,4 @@ With these inputs, v1 can separate served versus white-space outlets, calibrate 
 
 ## Important boundary
 
-Use v0 for workshop prioritization and data alignment. Do not use it as a sales forecast, a definitive customer list or a coverage audit.
+Use v0.1 for BI market orientation and OTM data alignment. Do not use it as an OTM result, sales forecast, definitive customer list or coverage audit.
