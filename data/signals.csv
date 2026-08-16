@@ -1,0 +1,26 @@
+dimension,signal,share_percent
+Material,Beverage & Dessert,21.7025
+Material,Vegetables / Fruits,18.7800
+Material,Dairy Product,17.2772
+Material,Rice / Flour,14.7353
+Material,Seasoning,14.6458
+Material,Meat,5.8383
+Material,Poultry,4.2865
+Material,Aquaculture,2.7343
+Flavor,Sweet,27.7535
+Flavor,Creamy,25.1217
+Flavor,Vegetables / Fruits,11.5616
+Flavor,Bitter,9.5777
+Flavor,Herb & Spice,6.9414
+Flavor,Fragrant,6.6003
+Flavor,Savory,6.0044
+Flavor,Hot & Spicy,3.8929
+Flavor,Sour,2.5464
+Process,Baked,31.3632
+Process,Blended,24.7076
+Process,Fried,12.2149
+Process,Rolled,5.8261
+Process,Steamed,5.7464
+Process,Brewed,3.3452
+Process,Stir-Fried,3.1107
+Process,Boiled,2.8765

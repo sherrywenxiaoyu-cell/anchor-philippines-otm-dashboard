@@ -1,0 +1,8 @@
+asset,period,source,status,usage
+Market structure,2026Q2,GAOYAN Philippines BI dashboard,Observed,Treats universe and category sizing
+Channel structure,2026Q2,GAOYAN Philippines BI dashboard,Observed,QSR concentration
+City structure,2026Q2,GAOYAN Philippines BI dashboard,Observed,Top-city prioritization
+Brand sample,2026Q2,GAOYAN Philippines BI dashboard,Observed,Illustrative chain target ranking
+Ingredient/flavor/process,2026Q2,GAOYAN Philippines BI dashboard,Observed,Anchor fit signals
+Revenue weight,v0,GAOYAN working assumption,Modeled,Relative index only
+Anchor fit,v0,GAOYAN working assumption,Modeled,Relative index only

@@ -1,0 +1,566 @@
+/* =========================================================================
+   高岩科技 Gaoyan Design Tokens
+   Source: 高岩科技品牌视觉手册 V1 (2025) — uploads/logo-spec.pdf
+   ========================================================================= */
+
+/* -------- Web fonts ------------------------------------------------------- */
+/* v7.0-A 排印升级（2026-07-05 · 摩诘拍板视觉升级 C→A→D→B 之 A）— 双线策略:
+   🔵 渲染成品线（HTML / PDF / PNG / 信息图,在高岩机器上渲染）→ 思源系三层分工:
+      - Display 层 1: Source Han Serif SC Heavy / 思源宋 Heavy — 刊物封面/章节页/结论大字（文献权威,自 v6.8 信息图专属扩权至此）
+      - Display 层 2: Noto Sans SC Black / 思源黑 Black — deck 标题/KPI 数字（现代锐利,独立 family、weight 900 直接命中不仿粗）
+      - Body 层:      Noto Sans SC / 思源黑 — 正文
+      - Mono:         JetBrains Mono（2026-07-05 已装机,不再静默回退 Consolas）
+   🟡 可编辑交付线（PPTX,在客户机器上打开）→ 保持 Microsoft YaHei 微软雅黑不动
+      （客户机无思源,字体嵌入有兼容成本;此线由 gy2.py / constants.py 管,与本 CSS 无关）
+   回退链设计:没装思源的机器逐级降到 HarmonyOS Sans SC → 雅黑 → PingFang,永不破版。
+   Century Gothic 自 v7.0-A 降级为 eyebrow 小字装饰专用,不再承担大数字（数字走思源黑 Black tabular）。
+
+   Serif display 用途（v7.0-A 扩权后）:
+   - ✅ 信息图大标题 / 刊物封面 / 报告章节页 / 结论页大字（≥40px 重磅场景）
+   - ❌ 仍不用于:正文、图表标签、小字标题（避免全局宋体化拖慢阅读）
+
+   token 真源:tokens.json → fonts（改字体先改那里,本文件是下游镜像之一）。
+   No @import needed — all fonts are locally installed; stacks degrade gracefully. */
+
+/* -------- Color tokens ---------------------------------------------------- */
+:root {
+  /* --- Brand core (from manual 1.07) --- */
+  --gy-blue:     #2355C8;   /* PANTONE 2175C — R35 G85 B200 — primary brand */
+  --gy-cyan:     #00F0BE;   /* PANTONE 3385C — R0 G240 B190 — accent only */
+  --gy-white:    #FFFFFF;
+  --gy-black:    #000000;
+
+  /* --- Blue scale (derived; for UI surfaces, hovers, charts) --- */
+  --gy-blue-50:  #EEF3FE;
+  --gy-blue-100: #D6E0FB;
+  --gy-blue-200: #A8BEF5;
+  --gy-blue-300: #6E91EC;
+  --gy-blue-400: #3F6FDD;
+  --gy-blue-500: #2355C8;   /* === brand blue === */
+  --gy-blue-600: #1A44A8;
+  --gy-blue-700: #143586;
+  --gy-blue-800: #0F2864;
+  --gy-blue-900: #0A1B45;
+
+  /* --- Cyan scale (accent — sparingly) --- */
+  --gy-cyan-50:  #E6FFF8;
+  --gy-cyan-100: #B8FCEC;
+  --gy-cyan-200: #7FF6D8;
+  --gy-cyan-300: #3DEEC4;
+  --gy-cyan-400: #00F0BE;   /* === brand cyan === */
+  --gy-cyan-500: #00C99E;
+  --gy-cyan-600: #009C7A;
+  --gy-cyan-700: #006E56;
+
+  /* --- Neutrals (warm-cool neutral grey for data UIs) --- */
+  --gy-ink:      #0A1430;   /* deep-blue-tinted near-black for body text */
+  --gy-grey-900: #1B2238;
+  --gy-grey-700: #3A445C;
+  --gy-grey-500: #6B748A;
+  --gy-grey-400: #98A0B3;
+  --gy-grey-300: #C5CAD6;
+  --gy-grey-200: #E2E5EC;
+  --gy-grey-100: #F1F3F7;
+  --gy-grey-50:  #F8F9FB;
+
+  /* --- Semantic background / foreground --- */
+  --gy-bg:       var(--gy-white);
+  --gy-bg-alt:   var(--gy-grey-50);
+  --gy-bg-deep:  var(--gy-blue-900);   /* hero / section header */
+  --gy-fg-1:     var(--gy-ink);        /* primary text */
+  --gy-fg-2:     var(--gy-grey-700);   /* secondary text */
+  --gy-fg-3:     var(--gy-grey-500);   /* tertiary / captions */
+  --gy-fg-on-blue: var(--gy-white);
+  --gy-fg-on-cyan: var(--gy-blue-900);
+  --gy-border:   var(--gy-grey-200);
+  --gy-border-strong: var(--gy-grey-300);
+
+  /* --- Data viz palette (chart series; brand-blue first) --- */
+  --gy-chart-1: var(--gy-blue-500);
+  --gy-chart-2: var(--gy-cyan-400);
+  --gy-chart-3: var(--gy-blue-300);
+  --gy-chart-4: var(--gy-blue-800);
+  --gy-chart-5: var(--gy-cyan-600);
+  --gy-chart-6: var(--gy-grey-500);
+
+  /* --- 信息图专属配色（v6.9 · 2026-05-31 · 4 专家配色会诊） ---
+     铁律：高岩是冷品牌 → 信息图全程冷色，禁暖底（旧暖奶白 #FCFBF9 系已弃用）。
+     纸感靠"冷色 + 极低饱和 + 零阴影"实现，不靠加暖。口诀：蓝铺面、青打点、底中性、负值灰。*/
+  --ig-surface:        #F8F9FB;  /* 画布主底（=冷中性50，替代暖奶白 #FCFBF9）*/
+  --ig-surface-raised: #F1F3F7;  /* hero/分段次级底（=冷中性100，替代暖灰 #F6F4F0）*/
+  --ig-surface-sunken: #EEF3FE;  /* 淡蓝凹槽/数据底轨（=蓝50）*/
+  --ig-frame:          #E6E9F0;  /* 画布外框 */
+  --ig-hairline:       #E2E5EC;  /* 分隔线（=冷中性200，替代暖线 #E8E4DC）*/
+  --ig-card:           #0A1B45;  /* 结论卡深底（=蓝900，替代暖炭灰 #262320；全冷后不撞色）*/
+  --ig-bignum:         #009C7A;  /* 🔴 核心大数字青绿（=青600，浅底可读+一眼是高岩青，替代墨绿 #006E56）*/
+  --ig-bignum-accent:  #00F0BE;  /* 大数字下划线高光（=亮品牌青，把深青绿锚回品牌青 family）*/
+  /* 数据色：焦点 var(--gy-blue-500)；ghost var(--gy-grey-300/400)；负值 var(--gy-grey-500) 不用红；
+     青色 ≤4 处/页且不进色阶/图例，只做"图之眼"爆点（核心大数字/结论关键词/单一焦点）*/
+
+  /* -------- Typography ------------------------------------------------- */
+  /* Font stacks - v7.0-A (2026-07-05) 渲染线思源化,雅黑降为回退（双线策略见文件头注释）*/
+  --gy-font-display-cn: "Noto Sans SC Black", "Noto Sans SC", "Source Han Sans SC", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", "PingFang SC", sans-serif;
+  /* Century Gothic 降级为 eyebrow 小字装饰专用（v7.0-A）,大数字改走 display-cn 的思源黑 Black */
+  --gy-font-display-en: "Century Gothic", "Trebuchet MS", "Gill Sans MT", sans-serif;
+  /* v7.0-A 扩权:刊物封面/章节页/结论大字 + 信息图大标题（≥40px 重磅场景;正文/图表标签仍禁用）*/
+  --gy-font-display-serif: "Source Han Serif SC Heavy", "Source Han Serif SC", "思源宋体", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --gy-font-body:       "Noto Sans SC", "HarmonyOS Sans SC", "Microsoft YaHei", "微软雅黑", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --gy-font-mono:       "JetBrains Mono", "Fira Code", "Consolas", monospace;
+
+  /* Type scale (px @ 16 root) */
+  --gy-text-xs:   12px;
+  --gy-text-sm:   14px;
+  --gy-text-base: 16px;
+  --gy-text-md:   18px;
+  --gy-text-lg:   20px;
+  --gy-text-xl:   24px;
+  --gy-text-2xl:  32px;
+  --gy-text-3xl:  40px;
+  --gy-text-4xl:  56px;
+  --gy-text-5xl:  72px;
+  --gy-text-6xl:  96px;
+
+  --gy-leading-tight:  1.15;
+  --gy-leading-snug:   1.35;
+  --gy-leading-body:   1.6;
+  --gy-leading-loose:  1.8;
+
+  --gy-track-tight: -0.01em;
+  --gy-track-base:   0;
+  --gy-track-wide:   0.04em;
+  --gy-track-caps:   0.12em;
+
+  /* -------- Spacing (8pt grid + small steps) --------------------------- */
+  --gy-space-1:  4px;
+  --gy-space-2:  8px;
+  --gy-space-3:  12px;
+  --gy-space-4:  16px;
+  --gy-space-5:  20px;
+  --gy-space-6:  24px;
+  --gy-space-8:  32px;
+  --gy-space-10: 40px;
+  --gy-space-12: 48px;
+  --gy-space-16: 64px;
+  --gy-space-20: 80px;
+  --gy-space-24: 96px;
+
+  /* -------- Radii ------------------------------------------------------- */
+  --gy-radius-xs: 2px;    /* chip strokes */
+  --gy-radius-sm: 4px;    /* inputs, small buttons */
+  --gy-radius-md: 8px;    /* cards, primary buttons */
+  --gy-radius-lg: 12px;   /* panels, modals */
+  --gy-radius-xl: 20px;   /* feature cards */
+  --gy-radius-pill: 999px;
+
+  /* -------- Elevation --------------------------------------------------- */
+  /* Gaoyan uses NO drop shadows. Separation comes from borders, fills, and
+     hairline rules. The only sanctioned use of `box-shadow` is the focus ring,
+     which is preferably implemented as `outline` (see --gy-focus-ring below). */
+  --gy-focus-ring: 0 0 0 3px rgba(35, 85, 200, 0.22);
+
+  /* -------- Motion ----------------------------------------------------- */
+  --gy-ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
+  --gy-ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --gy-dur-fast:  120ms;
+  --gy-dur-base:  220ms;
+  --gy-dur-slow:  420ms;
+}
+
+/* =========================================================================
+   Semantic typography
+   ========================================================================= */
+
+html { font-size: 16px; }
+body {
+  font-family: var(--gy-font-body);
+  color: var(--gy-fg-1);
+  background: var(--gy-bg);
+  font-size: var(--gy-text-base);
+  line-height: var(--gy-leading-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.gy-display {
+  font-family: var(--gy-font-display-cn);
+  font-weight: 700;
+  font-size: var(--gy-text-6xl);
+  line-height: var(--gy-leading-tight);
+  letter-spacing: var(--gy-track-tight);
+}
+.gy-h1 {
+  font-family: var(--gy-font-display-cn);
+  font-weight: 700;
+  font-size: var(--gy-text-4xl);
+  line-height: var(--gy-leading-tight);
+}
+.gy-h2 {
+  font-family: var(--gy-font-display-cn);
+  font-weight: 700;
+  font-size: var(--gy-text-3xl);
+  line-height: var(--gy-leading-tight);
+}
+.gy-h3 {
+  font-family: var(--gy-font-body);
+  font-weight: 700;
+  font-size: var(--gy-text-2xl);
+  line-height: var(--gy-leading-snug);
+}
+.gy-h4 {
+  font-family: var(--gy-font-body);
+  font-weight: 500;
+  font-size: var(--gy-text-xl);
+  line-height: var(--gy-leading-snug);
+}
+.gy-eyebrow {
+  font-family: var(--gy-font-display-en);
+  font-weight: 700;
+  font-size: var(--gy-text-sm);
+  letter-spacing: var(--gy-track-caps);
+  text-transform: uppercase;
+  color: var(--gy-blue-500);
+}
+.gy-body  { font-size: var(--gy-text-base); line-height: var(--gy-leading-body); color: var(--gy-fg-1); }
+.gy-body-lg { font-size: var(--gy-text-md); line-height: var(--gy-leading-body); color: var(--gy-fg-1); }
+.gy-caption { font-size: var(--gy-text-sm); line-height: var(--gy-leading-snug); color: var(--gy-fg-3); }
+.gy-mono   { font-family: var(--gy-font-mono); font-size: var(--gy-text-sm); }
+.gy-slogan {
+  font-family: var(--gy-font-display-cn);
+  font-weight: 500;
+  font-size: var(--gy-text-md);
+  letter-spacing: 0.08em;
+  color: var(--gy-blue-500);
+}
+
+/* =========================================================================
+   v6.3 · Icon System (Lucide-based, currentColor)
+   86 SVG icons in assets/icons/, see icons.json for keyword index.
+   Usage:
+     <svg class="gy-icon" ...inline lucide svg...> + parent text color drives it
+     <span class="gy-icon-wrap" data-icon="store"></span>  ← auto-inject via gy-auto-icon.js
+   ========================================================================= */
+.gy-icon-svg {
+  width: 1em; height: 1em;
+  vertical-align: -0.125em;     /* baseline-align with text */
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+/* Sizing modifiers (apply to wrap or svg) */
+.gy-icon, .gy-icon .gy-icon-svg { width: 20px; height: 20px; }
+.gy-icon-sm, .gy-icon-sm .gy-icon-svg { width: 14px; height: 14px; }
+.gy-icon-lg, .gy-icon-lg .gy-icon-svg { width: 28px; height: 28px; }
+.gy-icon-xl, .gy-icon-xl .gy-icon-svg { width: 40px; height: 40px; }
+.gy-icon-2xl, .gy-icon-2xl .gy-icon-svg { width: 56px; height: 56px; }
+
+/* Color modifiers */
+.gy-icon-blue { color: var(--gy-blue-500); }
+.gy-icon-cyan { color: var(--gy-cyan-400); }
+.gy-icon-grey { color: var(--gy-grey-400); }
+.gy-icon-white { color: var(--gy-white); }
+.gy-icon-warn { color: #E69F00; }       /* 警示用暖色（不破坏品牌色） */
+
+/* "Pill icon" — small badge around icon for numbered list */
+.gy-icon-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--gy-blue-50);
+  color: var(--gy-blue-500);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.gy-icon-pill.cyan { background: rgba(0, 240, 190, 0.12); color: #008868; }
+.gy-icon-pill.dark { background: rgba(255,255,255,0.08); color: var(--gy-cyan-400); }
+.gy-icon-pill .gy-icon-svg { width: 18px; height: 18px; }
+
+/* Numbered list with icon — "01 + icon + title" pattern */
+.gy-numbered { display: flex; align-items: flex-start; gap: 16px; }
+.gy-numbered-mark {
+  font-family: var(--gy-font-display-en);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--gy-cyan-400);
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  min-width: 40px;
+}
+
+/* =========================================================================
+   v6.3 · Section Divider + Visual Anchors
+   ========================================================================= */
+.gy-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 32px 0 24px;
+}
+.gy-section-divider::before {
+  content: '';
+  width: 14px; height: 14px;
+  background: var(--gy-cyan-400);
+  flex-shrink: 0;
+}
+.gy-section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gy-grey-200);
+}
+.gy-section-divider .gy-eyebrow { margin: 0; }
+
+/* Eyebrow with a leading colored bar */
+.gy-eyebrow-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--gy-font-display-en);
+  font-weight: 700;
+  font-size: var(--gy-text-sm);
+  letter-spacing: var(--gy-track-caps);
+  text-transform: uppercase;
+  color: var(--gy-blue-500);
+}
+.gy-eyebrow-bar::before {
+  content: '';
+  width: 28px; height: 3px;
+  background: var(--gy-cyan-400);
+}
+
+/* Data callout — large number with icon + delta */
+.gy-stat-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  background: var(--gy-white);
+  border: 1px solid var(--gy-grey-200);
+  border-radius: 12px;
+}
+.gy-stat-block .gy-icon-pill { margin-right: 0; }
+.gy-stat-block-content { flex: 1; }
+.gy-stat-block-value {
+  font-family: var(--gy-font-display-en);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--gy-fg-1);
+  letter-spacing: -0.02em;
+}
+.gy-stat-block-label {
+  font-size: var(--gy-text-sm);
+  color: var(--gy-fg-3);
+  margin-top: 4px;
+}
+.gy-stat-block-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: var(--gy-text-sm);
+  font-weight: 600;
+}
+.gy-stat-block-delta.up { color: var(--gy-blue-500); }
+.gy-stat-block-delta.down { color: var(--gy-grey-500); }
+
+/* =========================================================================
+   v7.0-C · Chart Signature 图表签名五件套 (2026-07-05)
+   规则源:tokens.json → chart_signature;PPT 端对应 gy2.py add_chart_header 等公共件。
+   每张 HTML/SVG 图表强制:①青色签名栏 ②两层标题 ③直接标注 ④墨色零线 ⑤mono来源行+钢印
+   ========================================================================= */
+.gy-chart { font-family: var(--gy-font-body); }
+
+/* ① 青色签名栏 — 全线唯一固定位(图表头左上),对应 PPT 端 0.31×0.045in */
+.gy-chart-sigbar {
+  width: 30px; height: 4px;
+  background: var(--gy-cyan-400);
+  margin-bottom: 10px;
+}
+
+/* ② 结论式标题两层 — 层1 观点句(墨色粗) + 层2 图名/单位说明句(灰) */
+.gy-chart-title {
+  font-family: var(--gy-font-display-cn);
+  font-weight: 700;
+  font-size: 17.5px;
+  line-height: 1.5;
+  color: var(--gy-ink);
+}
+.gy-chart-sub {
+  font-size: 12.5px;
+  color: var(--gy-grey-500);
+  margin: 4px 0 18px;
+}
+
+/* ③ 直接标注 — 数值贴图元末端(mono 粗),图例仅 ≥3 系列保留 */
+.gy-chart-lab {
+  font-family: var(--gy-font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+.gy-chart-lab.focus { color: var(--gy-blue-500); }
+.gy-chart-lab.ghost { color: var(--gy-grey-500); }
+
+/* ④ 墨色零线 — 图的「地面」2px 墨色;其余网格 hairline grey-100 */
+.gy-chart-zero-x { border-bottom: 2px solid var(--gy-ink); }
+.gy-chart-zero-y { border-left: 2px solid var(--gy-ink); }
+.gy-chart-grid   { border-color: var(--gy-grey-100); }
+
+/* ⑤ mono 来源行 + 钢印 — 左「数据来源」右「高岩 GAOYAN」,每图固定 */
+.gy-chart-source {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--gy-grey-200);
+  margin-top: 16px;
+  padding-top: 9px;
+  font-family: var(--gy-font-mono);
+  font-size: 10.5px;
+  color: var(--gy-grey-400);
+  letter-spacing: 0.05em;
+}
+.gy-chart-stamp b, .gy-chart-stamp strong { color: var(--gy-blue-500); font-weight: 700; }
+
+/* =========================================================================
+   v7.0-D · Precision Layer 精密感微系统 (2026-07-05)
+   数据公司气质的形式语言（Palantir 式）：mono 档案编号 + 技术图纸装饰件 + 网格肌理。
+   全部纯 CSS 零图片依赖；替代「icon 放大」作为默认装饰语言（86 Lucide 回归正文功能图标本职）。
+   规则源:tokens.json → precision_layer;封面用法见 templates/cover-三式模板。
+   ========================================================================= */
+
+/* ── mono 档案编号（页眉坐标系统）──
+   语法:GAOYAN·<类别>·<期号/日期>[·P.<页码>]，类别码 RES/PULSE/INS/PITCH/DATA。
+   例:<div class="gy-coord"><b>GAOYAN</b>·PULSE·2026-W21·P.04</div> */
+.gy-coord {
+  font-family: var(--gy-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gy-grey-500);
+}
+.gy-coord b, .gy-coord strong { color: var(--gy-blue-500); font-weight: 700; }
+.gy-coord.on-dark { color: rgba(255,255,255,0.55); }
+.gy-coord.on-dark b, .gy-coord.on-dark strong { color: var(--gy-cyan-400); }
+
+/* ── 十字准星（封面/章节页角落装饰,默认 56px）──
+   <div class="gy-crosshair"><i></i></div> */
+.gy-crosshair { position: relative; width: 56px; height: 56px; }
+.gy-crosshair::before, .gy-crosshair::after { content: ""; position: absolute; background: var(--gy-grey-300); }
+.gy-crosshair::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+.gy-crosshair::after  { top: 50%; left: 0; right: 0; height: 1px; }
+.gy-crosshair i { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px;
+                  background: var(--gy-cyan-400); transform: translate(-50%,-50%); }
+.gy-crosshair.on-dark::before, .gy-crosshair.on-dark::after { background: rgba(255,255,255,0.4); }
+
+/* ── 角标 registration mark（L 形四角标,包住重点区块）──
+   <div class="gy-regmark tl"></div> 四角各放一个,方位类 tl/tr/bl/br */
+.gy-regmark { position: absolute; width: 14px; height: 14px; }
+.gy-regmark::before, .gy-regmark::after { content: ""; position: absolute; background: var(--gy-grey-400); }
+.gy-regmark::before { width: 100%; height: 1px; }
+.gy-regmark::after  { width: 1px; height: 100%; }
+.gy-regmark.tl { top: 0; left: 0; }   .gy-regmark.tl::before { top: 0; }    .gy-regmark.tl::after { left: 0; }
+.gy-regmark.tr { top: 0; right: 0; }  .gy-regmark.tr::before { top: 0; }    .gy-regmark.tr::after { right: 0; }
+.gy-regmark.bl { bottom: 0; left: 0; }  .gy-regmark.bl::before { bottom: 0; } .gy-regmark.bl::after { left: 0; }
+.gy-regmark.br { bottom: 0; right: 0; } .gy-regmark.br::before { bottom: 0; } .gy-regmark.br::after { right: 0; }
+.gy-regmark.on-dark::before, .gy-regmark.on-dark::after { background: rgba(255,255,255,0.35); }
+
+/* ── 刻度条（横向标尺,分隔/装饰两用）──
+   <div class="gy-ticks"></div>  宽度自适应容器,刻度间距 24px */
+.gy-ticks {
+  height: 8px;
+  background-image: repeating-linear-gradient(90deg,
+    var(--gy-grey-300) 0, var(--gy-grey-300) 1px, transparent 1px, transparent 24px);
+}
+.gy-ticks.on-dark {
+  background-image: repeating-linear-gradient(90deg,
+    rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 1px, transparent 1px, transparent 24px);
+}
+
+/* ── 深蓝网格肌理（hero/封面深蓝表面专用;同时解决「纯色太空」与「渐变太 SaaS」）──
+   用法:深蓝容器加 class="gy-grid-texture"(容器需 position:relative + overflow:hidden) */
+.gy-grid-texture { position: relative; }
+.gy-grid-texture::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+/* 浅底变体（白/灰底上的极淡网格,用于数据版式区）*/
+.gy-grid-texture.light::before {
+  background-image:
+    linear-gradient(rgba(10,20,48,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,20,48,0.03) 1px, transparent 1px);
+}
+
+/* =========================================================================
+   v7.0-B · Editorial Layout 版面语言 (2026-07-05)
+   「从 SaaS 页到研究文献」:KPI 默认走无框数字排（数字坐在纸面上,规线+字重分层）,
+   灰底圆角卡阵列降级为例外（仅深蓝 hero KPI 卡 / 需整体引用的独立单元两种合法场景）。
+   配套铁律:深蓝 hero 禁渐变（见 v7.0-D 网格肌理）· >3 同级块禁格子墙 · 版心 ≤1100px。
+   ========================================================================= */
+
+/* ── 无框数字排（上规线 2px 墨定重心 · 栏间 1px hairline · 唯一焦点蓝）──
+   <div class="gy-kpi-flat">
+     <div class="c hero"><div class="l">标签</div><div class="v">18,883<small>亿元</small></div><div class="d"><b>▲ +3.8%</b> 说明</div></div>
+     <div class="c">…</div>
+   </div> */
+.gy-kpi-flat {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  border-top: 2px solid var(--gy-ink);
+  border-bottom: 1px solid var(--gy-grey-200);
+}
+.gy-kpi-flat .c { padding: 18px 18px 16px; border-right: 1px solid var(--gy-grey-200); }
+.gy-kpi-flat .c:last-child { border-right: none; }
+.gy-kpi-flat .l {
+  font-family: var(--gy-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gy-grey-500);
+}
+.gy-kpi-flat .v {
+  font-family: var(--gy-font-display-cn);
+  font-weight: 900;
+  font-size: 38px;
+  line-height: 1.05;
+  margin-top: 10px;
+  letter-spacing: -0.015em;
+  font-feature-settings: "tnum";
+  color: var(--gy-ink);
+}
+.gy-kpi-flat .v small { font-size: 15px; color: var(--gy-grey-500); font-weight: 400; letter-spacing: 0; margin-left: 3px; }
+.gy-kpi-flat .c.hero .v { color: var(--gy-blue-500); }   /* 唯一焦点数字,一行最多一个 */
+.gy-kpi-flat .d { font-family: var(--gy-font-mono); font-size: 11.5px; margin-top: 8px; color: var(--gy-grey-500); }
+.gy-kpi-flat .d b { color: var(--gy-blue-500); font-weight: 700; }
+@media (max-width: 600px) {
+  .gy-kpi-flat { grid-template-columns: 1fr; }
+  .gy-kpi-flat .c { border-right: none; border-bottom: 1px solid var(--gy-grey-200); }
+  .gy-kpi-flat .c:last-child { border-bottom: none; }
+}
+
+/* ── 版心（研究文献版式:正文段落宽度上限）── */
+.gy-prose { max-width: 1100px; }
+.gy-prose-narrow { max-width: 880px; }
+
+/* ══ v7.2 密度双轨制工具类（2026-07-30）══
+   参数源 tokens.json → page_density。密实轨正解:等分吸收余量,不是 space-between 摊稀。
+   来源:李锦记/恒天然横版模板验证过的配方(.pad>.grow / .growgroup)固化。
+   ⚠️ 表格禁挂 .gy-fill:表格不吸收 flex 余量,会在下方留死白带——余量交给兄弟 panel。*/
+.gy-fill        { flex: 1 1 auto; min-height: auto; display: flex; flex-direction: column; }
+.gy-fill > *    { flex: 1 1 auto; min-height: auto; }
+.gy-fill-center { flex: 1 1 auto; min-height: auto; display: flex; flex-direction: column;
+                  justify-content: center; }        /* 内容少的页(KPI/cards)垂直居中吸收余量 */
+.gy-fill-grid   { display: grid; align-content: center; }  /* grid 版余量吸收,禁 align-items:stretch */
+
+/* 密实轨地板红线(自查提示,gate 由 P2 脚本接管):
+   deck16:9 字号 ≥15px · 行高 ≥1.25 · 表格 cell padding ≥8px
+   禁 transform:scale 兜底 / !important 压字号——超载先删内容或拆页 */
+.gy-table-min td, .gy-table-min th { padding: 8px 11px; line-height: 1.4; } /* 表格内边距地板参考实现 */

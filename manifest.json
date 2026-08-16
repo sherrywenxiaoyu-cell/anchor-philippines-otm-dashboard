@@ -1,0 +1,14 @@
+{
+  "name": "Anchor Philippines OTM Dashboard v0",
+  "short_name": "Anchor PH OTM",
+  "description": "A transparent opportunity-to-market prototype for Anchor Philippines.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F7FB",
+  "theme_color": "#2355C8",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

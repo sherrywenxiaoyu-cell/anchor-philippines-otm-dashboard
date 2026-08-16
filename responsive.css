@@ -1,0 +1,609 @@
+/* =========================================================================
+   高岩科技 Gaoyan Responsive System
+   四种自动适配：网页阅读 / 手机阅读 / PDF横版打印 / PDF竖版打印
+   ========================================================================= */
+
+/* -------- 基础响应式 tokens ---------------------------------------------- */
+:root {
+  --gy-viewport-padding: 80px;  /* 桌面版外边距 */
+  --gy-content-max-width: 1200px;
+  --gy-section-gap: 64px;
+  --gy-card-gap: 24px;
+}
+
+/* -------- 标题/金句换行孤行禁令（widow rule · 全局，所有断点生效） --------
+   规则：所有标题类换行时，末行字数须 ≥ 第一行 1/3，禁止只剩一两个字的孤行。
+   text-wrap:balance 由浏览器自动均衡多行长度、消除孤行（Chromium 114+ / PDF 导出引擎支持，
+   仅对标题/短文本 ≤ 约 6 行生效，正文长段落不受影响）。纯增量，不改既有布局。
+   仍需在终稿 + 导出后对照 PDF/PNG 人工复核长标题与长 pull quote。 */
+h1, h2, h3, h4, h5, h6,
+blockquote,
+.gy-hero-title, .gy-hero-subtitle, .gy-title, .gy-subtitle, .gy-deck,
+.gy-section-title, .gy-card-title, .gy-fig-title, .gy-pull, .gy-quote,
+.fig-title, .act-title, .st-title, .deck {
+  text-wrap: balance;
+}
+
+/* -------- 1. 网页阅读适配版（默认：桌面） ------------------------------ */
+/* 标准桌面布局，已在主文件中定义，这里仅做补充 */
+
+.gy-container {
+  max-width: var(--gy-content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--gy-viewport-padding);
+}
+
+.gy-section {
+  margin-bottom: var(--gy-section-gap);
+}
+
+.gy-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gy-card-gap);
+}
+
+.gy-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gy-card-gap);
+}
+
+/* -------- 2. 手机阅读适配版（≤768px）----------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --gy-viewport-padding: 20px;
+    --gy-section-gap: 40px;
+    --gy-card-gap: 16px;
+    
+    /* 调整字号：保持可读性 */
+    --gy-text-6xl: 56px;  /* 原96px → 56px */
+    --gy-text-5xl: 48px;  /* 原72px → 48px */
+    --gy-text-4xl: 36px;  /* 原56px → 36px */
+    --gy-text-3xl: 28px;  /* 原40px → 28px */
+    --gy-text-2xl: 24px;  /* 原32px → 24px */
+  }
+
+  /* 所有网格变单列 */
+  .gy-grid-2,
+  .gy-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Hero 文字缩小 */
+  .gy-hero-title {
+    font-size: var(--gy-text-4xl);
+    line-height: 1.2;
+  }
+
+  .gy-hero-subtitle {
+    font-size: var(--gy-text-lg);
+  }
+
+  /* 增大触控目标：按钮、链接最小44×44px */
+  .gy-btn,
+  button,
+  a[role="button"] {
+    min-height: 44px;
+    padding: 12px 20px;
+    font-size: var(--gy-text-md);
+  }
+
+  /* 卡片内边距缩小 */
+  .gy-card {
+    padding: 16px;
+  }
+
+  /* 统计卡片：数字缩小但保持视觉层级 */
+  .gy-stat-value {
+    font-size: 40px;
+  }
+
+  /* 表格：横向滚动 */
+  .gy-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  /* 隐藏移动端不需要的装饰元素 */
+  .gy-super-graphic {
+    opacity: 0.3;
+    transform: scale(0.7);
+  }
+
+  /* 图片：全宽 */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 页面内导航：折叠为汉堡菜单（需配合 JS） */
+  .gy-nav-desktop {
+    display: none;
+  }
+
+  .gy-nav-mobile {
+    display: block;
+  }
+}
+
+/* 小屏手机 ≤375px */
+@media (max-width: 375px) {
+  :root {
+    --gy-viewport-padding: 16px;
+    --gy-text-4xl: 32px;
+  }
+}
+
+/* -------- 2.5 手机端"兜底"规则（≤768px）---------------------------------
+   对于**不使用 gy-* 语义类**的 HTML（自定义类名 / inline style / 裸标签），
+   通过通用选择器自动适配。桌面端完全不受影响。
+   ----------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* 全局：基础排版收紧 */
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-size: 15px;
+    line-height: 1.55;
+    overflow-x: hidden;  /* 防止超宽元素撑破视口 */
+    word-break: break-word;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 顶层容器：常见自定义类名 + 裸 section/article 通用收边距 */
+  section,
+  article,
+  .section,
+  .container,
+  .wrap,
+  .wrapper,
+  .slide,
+  .page,
+  .content,
+  main {
+    max-width: 100% !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 卡片类（覆盖各种命名变体） */
+  .card,
+  .item,
+  .panel,
+  .box,
+  .tile,
+  .field {
+    padding: 14px !important;
+    margin-bottom: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 标题字号阶梯下降（裸标签兜底，桌面不影响） */
+  h1 { font-size: clamp(28px, 7vw, 36px) !important; line-height: 1.2 !important; }
+  h2 { font-size: clamp(22px, 5.5vw, 28px) !important; line-height: 1.25 !important; }
+  h3 { font-size: clamp(18px, 4.5vw, 22px) !important; line-height: 1.3 !important; }
+  h4 { font-size: clamp(16px, 4vw, 18px) !important; line-height: 1.35 !important; }
+
+  /* 超大数字/Hero 数（常见 .num/.value/.metric 等） */
+  .num,
+  .number,
+  .value,
+  .stat,
+  .stat-value,
+  .metric,
+  .big-num,
+  .figure {
+    font-size: clamp(28px, 8vw, 44px) !important;
+    line-height: 1.1 !important;
+  }
+
+  /* 🔴 杀手锏：inline grid-template-columns 强制单栏
+     抓 style="...grid-template-columns: ..." 强行单栏化 */
+  [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 🔴 inline flex 多列 → 改为纵向堆叠 */
+  [style*="display: flex"],
+  [style*="display:flex"],
+  [style*="display: -webkit-flex"] {
+    flex-wrap: wrap !important;
+  }
+  [style*="display: flex"] > *,
+  [style*="display:flex"] > * {
+    min-width: 0 !important;
+    flex-basis: 100% !important;
+  }
+  /* 例外：希望仍横排的 flex 显式加 .keep-row 类 */
+  [style*="display: flex"].keep-row,
+  [style*="display:flex"].keep-row {
+    flex-wrap: nowrap !important;
+  }
+  [style*="display: flex"].keep-row > *,
+  [style*="display:flex"].keep-row > * {
+    flex-basis: auto !important;
+  }
+
+  /* 🔴 通用 grid/flex 类名兜底 */
+  .grid,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-cols-2,
+  .grid-cols-3,
+  .grid-cols-4,
+  .row,
+  .cols,
+  .columns,
+  .flex-row {
+    grid-template-columns: 1fr !important;
+    flex-direction: column !important;
+  }
+
+  /* 表格：横向滚动（裸 table 兜底，不依赖 .gy-table-wrapper） */
+  table {
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+  }
+  /* 但放在已有滚动容器里的表格不重复处理 */
+  .gy-table-wrapper table,
+  .table-wrapper table,
+  .overflow-x-auto table {
+    display: table !important;
+    white-space: normal !important;
+  }
+
+  /* 图片/视频/iframe/canvas：全宽自适应 */
+  img, video, iframe, canvas, svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* inline 宽度（width: 600px / max-width: 800px 等）强制不超过视口 */
+  [style*="width:"],
+  [style*="max-width:"] {
+    max-width: 100% !important;
+  }
+
+  /* 大边距/大 padding 收紧（常见 padding: 80px / 60px 等） */
+  [style*="padding: 80"],
+  [style*="padding: 60"],
+  [style*="padding: 100"],
+  [style*="padding: 120"],
+  [style*="padding-left: 80"],
+  [style*="padding-right: 80"],
+  [style*="padding-left: 100"],
+  [style*="padding-right: 100"] {
+    padding: 20px !important;
+  }
+
+  /* 按钮触控目标 ≥44px（裸 button 兜底） */
+  button,
+  .btn,
+  .button,
+  a.btn,
+  a[role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px !important;
+    padding: 10px 16px !important;
+  }
+
+  /* 装饰类：手机上淡化或隐藏 */
+  .super-graphic,
+  .decoration,
+  .background-deco,
+  .bg-pattern {
+    opacity: 0.2 !important;
+    transform: scale(0.7) !important;
+  }
+
+  /* 固定定位元素（避免遮挡） */
+  [style*="position: fixed"],
+  [style*="position:fixed"] {
+    max-width: calc(100vw - 32px) !important;
+  }
+}
+
+/* 极小屏（≤375px）裸标签兜底 */
+@media (max-width: 375px) {
+  body { font-size: 14px; }
+  section, article, .section, .container, .wrap, .slide, .page, main {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  h1 { font-size: clamp(24px, 7vw, 30px) !important; }
+}
+
+/* -------- 3. PDF 打印适配 - 通用规则 ------------------------------------ */
+@media print {
+  /* 隐藏所有交互元素 */
+  nav,
+  .gy-nav,
+  .gy-btn,
+  button,
+  .gy-scroll-to-top,
+  .gy-print-toggle,
+  .no-print {
+    display: none !important;
+  }
+
+  /* 重置页面背景 */
+  body {
+    background: white;
+    color: black;
+  }
+
+  /* 移除阴影、过渡、动画 */
+  * {
+    box-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* 保留边框和底色（用于表格、卡片） */
+  .gy-card,
+  table,
+  .gy-callout {
+    border: 1px solid var(--gy-grey-300) !important;
+    break-inside: avoid; /* 避免跨页断开 */
+  }
+
+  /* 强制黑白文本（可选：如需彩色打印，注释掉） */
+  /* h1, h2, h3, h4, h5, h6, p, li {
+    color: black !important;
+  } */
+
+  /* 链接：显示URL */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: var(--gy-grey-600);
+  }
+
+  /* 图片：避免跨页 */
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+
+  /* 标题：避免孤行 */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* 表格：避免跨页 */
+  table {
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group; /* 每页重复表头 */
+  }
+
+  /* 章节：强制分页 */
+  .gy-section-break,
+  .page-break {
+    page-break-before: always;
+  }
+}
+
+/* -------- 4a. PDF 打印适配 - 横版（默认：A4 landscape）----------------- */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 20mm 20mm 20mm 20mm;
+  }
+
+  :root {
+    --gy-viewport-padding: 0;
+    --gy-content-max-width: none;
+  }
+
+  body {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .gy-container {
+    max-width: 100%;
+    padding: 0 20mm;
+  }
+
+  /* 横版：两栏布局优化 */
+  .gy-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* 横版：文字稍小 */
+  .gy-hero-title {
+    font-size: 48px;
+  }
+
+  /* 页眉页脚 */
+  .gy-print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--gy-grey-200);
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--gy-grey-600);
+  }
+
+  .gy-print-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--gy-grey-200);
+    margin-top: 24px;
+    font-family: var(--gy-font-mono);
+    font-size: 10px;
+    color: var(--gy-grey-500);
+  }
+
+  /* 页码：自动生成 */
+  .gy-print-footer::after {
+    content: counter(page);
+  }
+}
+
+/* -------- 4b. PDF 打印适配 - 竖版（A4 portrait）----------------------- */
+/* 通过 body.portrait-mode 类名切换 */
+@media print {
+  body.portrait-mode {
+    /* 覆盖横版设置 */
+  }
+
+  body.portrait-mode @page {
+    size: A4 portrait;
+    margin: 25mm 20mm 25mm 20mm;
+  }
+
+  /* 竖版：单栏布局 */
+  body.portrait-mode .gy-grid-2,
+  body.portrait-mode .gy-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* 竖版：标题更大（利用纵向空间） */
+  body.portrait-mode .gy-hero-title {
+    font-size: 64px;
+    line-height: 1.1;
+  }
+
+  /* 竖版：统计卡片纵向排列 */
+  body.portrait-mode .gy-stat-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* 竖版：超级图形更大 */
+  body.portrait-mode .gy-super-graphic {
+    transform: scale(1.2);
+  }
+}
+
+/* -------- 打印模式切换按钮（仅屏幕显示）------------------------------ */
+@media screen {
+  .gy-print-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    background: var(--gy-blue-500);
+    color: white;
+    border: none;
+    border-radius: var(--gy-radius-lg);
+    padding: 12px 20px;
+    font-family: var(--gy-font-body);
+    font-size: var(--gy-text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(35, 85, 200, 0.3);
+    transition: all var(--gy-dur-base) var(--gy-ease);
+  }
+
+  .gy-print-toggle:hover {
+    background: var(--gy-blue-600);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(35, 85, 200, 0.4);
+  }
+
+  .gy-print-toggle:active {
+    transform: scale(0.98);
+  }
+
+  /* 打印模式指示器 */
+  body.portrait-mode .gy-print-toggle::before {
+    content: "📄 竖版模式 · ";
+  }
+
+  body:not(.portrait-mode) .gy-print-toggle::before {
+    content: "📄 横版模式 · ";
+  }
+}
+
+/* -------- 工具类：响应式显示/隐藏 ------------------------------------- */
+.gy-hide-mobile {
+  display: block;
+}
+
+.gy-show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .gy-hide-mobile {
+    display: none;
+  }
+
+  .gy-show-mobile {
+    display: block;
+  }
+}
+
+/* 打印时隐藏 */
+@media print {
+  .gy-hide-print {
+    display: none !important;
+  }
+}
+
+/* -------- 可访问性增强 ------------------------------------------------ */
+/* 高对比度模式：自动适配 Windows 高对比度 */
+@media (prefers-contrast: high) {
+  :root {
+    --gy-grey-300: #999;
+    --gy-grey-500: #666;
+  }
+
+  .gy-card {
+    border-width: 2px;
+  }
+}
+
+/* 减少动画：尊重用户系统偏好 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* -------- 打印调试：仅开发时使用 --------------------------------------- */
+/* 取消注释以查看打印分页位置 */
+/*
+@media print {
+  body::before {
+    content: "🖨️ 打印预览模式";
+    display: block;
+    text-align: center;
+    padding: 8px;
+    background: yellow;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .gy-section::after {
+    content: "--- 章节结束 ---";
+    display: block;
+    text-align: center;
+    color: red;
+    margin-top: 20px;
+  }
+}
+*/

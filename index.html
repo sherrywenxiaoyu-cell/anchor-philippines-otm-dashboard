@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2355C8">
+  <meta name="description" content="Anchor Philippines OTM Dashboard v0 — transparent market prioritization prototype.">
+  <title>Anchor Philippines OTM Dashboard v0</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to dashboard</a>
+  <header class="topbar">
+    <div class="brand-lockup" aria-label="GAOYAN">
+      <svg class="official-logo" role="img" aria-label="高岩 GAOYAN" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="400" viewBox="0 0 600 400">
+<defs>
+<clipPath id="clip_1">
+<path transform="matrix(1,0,0,-1,0,400)" d="M0 400H600V0H0Z"></path>
+</clipPath>
+</defs>
+<g>
+<g clip-path="url(#clip_1)">
+<path transform="matrix(1,0,0,-1,205.0637,129.95331)" d="M0 0 46.33 13.084C51.096 14.43 56.013 11.618 57.541 6.674L84.656-81.091C85.765-84.682 83.473-88.457 79.916-88.897L-47.019-89.346C-49.578-89.663-51.508-86.961-50.521-84.444L-29.113-26.971C-23.909-13.687-13.14-3.711 0 0" fill="#00eec0"></path>
+<path transform="matrix(1,0,0,-1,281.6674,106.604618)" d="M0 0-42.778-122.719C-43.771-125.567-41.947-128.666-39.279-128.666H127.171C137.099-128.666 145.982-121.575 149.453-110.88L163.195-68.53C165.923-60.121 161.917-50.808 154.449-48.199L6.396 3.528C3.791 4.439 1.013 2.906 0 0" fill="#2257c6"></path>
+<path transform="matrix(1,0,0,-1,268.8301,143.43051)" d="M0 0-26.343-75.57 16.149-75.42C19.706-74.98 21.998-71.204 20.889-67.614Z" fill="#006ec2"></path>
+<path transform="matrix(1,0,0,-1,197.6696,250.4565)" d="M0 0H-6.435V-3.462H-26.197L-25.665-8.573H19.852V-3.462H0Z" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,211.6579,272.1411)" d="M0 0H-34.309C-37.125 0-38.494-1.369-38.494-4.185V-24.354H-32.263V-5.56C-32.263-5.115-32.056-4.908-31.611-4.908H-2.698C-2.248-4.908-2.047-5.109-2.047-5.56V-16.859C-2.047-17.944-2.928-18.779-4.239-18.937-6.393-19.208-9.409-18.942-12.957-18.175L-13.137-18.136-11.696-23.473-11.626-23.486C-7.54-24.201-4.208-24.458-1.722-24.251 2.142-23.924 4.185-21.967 4.185-18.591V-4.185C4.185-1.369 2.816 0 0 0" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,183.1115,266.1958)" d="M0 0V1.222C0 1.466 .152 1.618 .396 1.618H22.234C22.479 1.618 22.631 1.466 22.631 1.222V0C22.631-.245 22.479-.397 22.234-.397H.396C.152-.397 0-.245 0 0M-2.963-4.694H25.594C27.488-4.694 28.76-3.422 28.76-1.527V2.748C28.76 4.643 27.488 5.915 25.594 5.915H-2.963C-4.857 5.915-6.129 4.643-6.129 2.748V-1.527C-6.129-3.422-4.857-4.694-2.963-4.694" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,187.7438,285.3862)" d="M0 0V2.341C0 2.601 .225 2.737 .447 2.737H13.02C13.243 2.737 13.468 2.601 13.468 2.341V0C13.468-.261 13.243-.398 13.02-.398H.447C.225-.398 0-.261 0 0M18.885-1.935V4.275C18.885 5.865 17.817 6.933 16.228 6.933H-2.76C-4.349 6.933-5.417 5.865-5.417 4.275V-1.935C-5.417-3.524-4.349-4.593-2.76-4.593H16.228C17.817-4.593 18.885-3.524 18.885-1.935" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,246.5211,263.1528)" d="M0 0H31.254C33.828 0 35.49 1.663 35.49 4.235V10.915H29.36V5.967C29.36 5.571 29.105 5.315 28.709 5.315H18.794V12.696H12.461V5.315H2.545C2.149 5.315 1.894 5.571 1.894 5.967V10.915H-4.235V4.235C-4.235 1.663-2.573 0 0 0" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,276.0344,283.0962)" d="M0 0V-6.311C0-6.707-.255-6.963-.651-6.963H-22.183C-22.579-6.963-22.835-6.707-22.835-6.311V0C-22.835 .396-22.579 .651-22.183 .651H-.651C-.255 .651 0 .396 0 0M-35.979 11.189H-23.339C-26.541 7.385-31.431 3.943-37.5 1.223L-37.589 1.183-35.832-5.019-35.799-5.136-35.685-5.094C-33.391-4.246-31.062-3.114-28.76-1.726V-8.704C-28.76-11.04-27.421-12.38-25.085-12.38H2.25C4.586-12.38 5.926-11.04 5.926-8.704V2.393C5.926 4.729 4.586 6.068 2.25 6.068H-18.973C-17.398 7.769-16.078 9.49-15.044 11.189H8.624V16.605H-36.509Z" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,338.3048,263.4497)" d="M0 0 .153-.06V6.136L.081 6.164C-3.486 7.552-7.206 8.786-10.975 9.833L-11.118 9.873V3.684L-11.036 3.661C-7.273 2.616-3.56 1.384 0 0" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,338.3044,274.9028)" d="M0 0 .153-.06V6.289L.081 6.317C-2.952 7.46-6.672 8.609-10.977 9.732L-11.117 9.768V3.581L-11.035 3.559C-6.697 2.365-2.984 1.167 0 0" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,319.8776,274.2524)" d="M0 0V5.552H5.65V11.07H0V16.966C1.914 17.188 3.553 17.502 5.01 17.925L5.091 17.949V23.418L4.953 23.386C.687 22.394-3.768 21.912-8.664 21.912H-13.12L-12.376 16.598H-8.664C-7.8 16.598-6.908 16.598-6.027 16.642V11.07H-13.981L-13.397 5.552H-6.027V1.427C-6.556 1.548-7.208 1.689-7.839 1.789V3.943H-12.339V.522C-12.339-2.911-13.044-8.895-15.031-14.457L-15.071-14.568-10.525-15.905-10.491-15.801C-9.252-11.942-8.388-7.639-8.052-3.67-7.384-3.722-6.704-3.816-6.027-3.948V-22.344H0V-5.332C1.66-5.857 3.215-6.455 4.625-7.113L4.785-7.187V-1.329L4.705-1.305C3.034-.803 1.452-.365 0 0" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,346.5514,250.4565)" d="M0 0H-6.231V-28.518L-21.199-30.186-21.315-30.199-20.467-35.868-6.231-34.241V-46.038H0V-33.554L5.192-32.943V-27.271L0-27.831Z" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,389.2028,270.5361)" d="M0 0-4.479-.968V6.264H0V11.783H-4.479V20.08H-10.609V11.783H-16.015L-15.537 6.264H-10.609V-2.34L-16.787-3.718-15.674-9.389-10.609-8.123V-18.669C-10.609-19.441-11.14-19.932-12.028-19.981-13.375-20.039-14.627-19.898-16.067-19.526L-16.249-19.48-14.933-24.956-14.917-25.021-14.851-25.038C-13.376-25.407-12.035-25.581-10.624-25.581-10.279-25.581-9.93-25.571-9.574-25.55-6.574-25.39-4.479-23.313-4.479-20.501V-6.641L0-5.521Z" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,419.5147,291.0322)" d="M0 0C-4.528 1.492-7.948 2.956-10.746 4.599-6.917 8.405-4.101 12.837-2.372 17.774-1.807 19.393-1.892 20.79-2.618 21.813-3.365 22.865-4.725 23.421-6.551 23.421H-12.394V29.254H-1.093V34.569H-12.394V40.576H-18.727V34.569H-29.479L-28.948 29.254H-18.727V23.421H-29.123L-28.591 18.106H-8.547C-9.963 14.473-12.321 11.138-15.56 8.189-18.096 10.499-20.071 13.235-21.771 16.791L-21.802 16.855H-28.094L-28.035 16.702C-26.197 11.954-23.689 7.993-20.37 4.596-23.71 2.454-27.615 .789-31.98-.355L-32.091-.384-30.451-6.148-30.345-6.12C-24.859-4.661-19.92-2.427-15.663 .52-11.808-2.208-7.221-4.38-1.646-6.119L-1.535-6.153 .101-.033Z" fill="#3f3a39"></path>
+<path transform="matrix(1,0,0,-1,320.6725,209.3949)" d="M0 0H-6.576V-2.989H-4.116V-5.089L-4.156-5.107C-5.102-5.515-6.058-5.722-6.996-5.722-8.767-5.722-10.215-5.249-11.302-4.315-12.392-3.379-12.945-2.139-12.945-.628-12.945 .946-12.393 2.259-11.304 3.276-10.217 4.292-8.648 4.807-6.643 4.807-4.603 4.807-2.487 4.291-.353 3.273V6.845C-2.299 7.76-4.534 8.224-6.996 8.224-9.994 8.224-12.469 7.406-14.35 5.793-16.23 4.184-17.183 2.072-17.183-.482-17.183-2.979-16.23-5.066-14.35-6.684-12.468-8.305-10.026-9.127-7.093-9.127-5.759-9.127-4.392-8.912-3.028-8.489-1.682-8.071-.664-7.527 0-6.872Z" fill="#ffffff"></path>
+<path transform="matrix(1,0,0,-1,332.7311,205.2172)" d="M0 0 2.861-6.874H-2.593ZM4.045-9.717 5.446-13.085H9.855L2.358 3.827H-2.463L-9.281-13.085H-4.935L-3.665-9.717Z" fill="#ffffff"></path>
+<path transform="matrix(1,0,0,-1,357.3555,213.6646)" d="M0 0C-.991-.964-2.313-1.453-3.932-1.453-5.558-1.453-6.887-.964-7.881 0-8.877 .964-9.382 2.247-9.382 3.812-9.382 5.386-8.877 6.67-7.881 7.63-6.887 8.59-5.558 9.077-3.932 9.077-2.314 9.077-.991 8.59 0 7.63 .991 6.67 1.494 5.385 1.494 3.812 1.494 2.247 .991 .964 0 0M3.06 9.883C1.287 11.615-1.065 12.493-3.932 12.493-6.807 12.493-9.166 11.617-10.942 9.889-12.719 8.161-13.619 6.117-13.619 3.812-13.619 1.467-12.712-.586-10.924-2.289-9.136-3.993-6.783-4.857-3.932-4.857-1.114-4.857 1.227-3.989 3.024-2.276 4.821-.565 5.732 1.484 5.732 3.812 5.732 6.108 4.833 8.151 3.06 9.883" fill="#ffffff"></path>
+<path transform="matrix(1,0,0,-1,375.6447,201.3907)" d="M0 0-3.741-5.408-7.469 0H-12.438L-5.793-9.003V-16.911H-1.69V-9.008L-1.677-8.99 4.954 0Z" fill="#ffffff"></path>
+<path transform="matrix(1,0,0,-1,388.1935,205.2172)" d="M0 0 2.861-6.874H-2.593ZM4.045-9.717 4.062-9.758 5.446-13.085H9.855L2.358 3.827H-2.463L-9.281-13.085H-4.935L-3.665-9.717Z" fill="#ffffff"></path>
+<path transform="matrix(1,0,0,-1,418.0255,218.3018)" d="M0 0V16.911H-4.103V6.379L-4.221 6.514-13.285 16.911H-17.073V0H-12.97V11.034L-3.481 0Z" fill="#ffffff"></path>
+</g>
+</g>
+</svg>
+    </div>
+    <div class="product-lockup">
+      <div class="eyebrow">ANCHOR PHILIPPINES · 2026Q2</div>
+      <div class="product-title">OTM Dashboard <span class="version">v0</span></div>
+    </div>
+    <div class="status-cluster">
+      <span class="status-pill">EXTERNAL-DATA PROTOTYPE</span>
+      <span class="period">Updated 14 Aug 2026</span>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Dashboard navigation">
+      <div class="side-label">VIEW</div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-view="overview"><span>01</span>Executive Overview</button>
+        <button class="nav-item" data-view="category"><span>02</span>Category Opportunity</button>
+        <button class="nav-item" data-view="fit"><span>03</span>Anchor Fit Diagnostics</button>
+        <button class="nav-item" data-view="targets"><span>04</span>Target Explorer</button>
+        <button class="nav-item" data-view="method"><span>05</span>Methodology & Data</button>
+      </nav>
+      <div class="side-note">
+        <strong>What v0 can do</strong>
+        <p>Rank market segments and 15 observed chain samples with a transparent relative index.</p>
+      </div>
+      <div class="side-note muted">
+        <strong>What v0 cannot do</strong>
+        <p>Estimate PHP sales or identify exact white-space outlets without Anchor and distributor data.</p>
+      </div>
+    </aside>
+
+    <main id="mainContent" class="main-content" tabindex="-1">
+      <section class="control-bar" aria-label="Dashboard filters">
+        <div class="control-copy">
+          <div class="eyebrow">GLOBAL FILTERS</div>
+          <div id="filterSummary" class="filter-summary">All categories · All priority tiers</div>
+        </div>
+        <label class="field">Category
+          <select id="categoryFilter">
+            <option value="All">All categories</option>
+            <option value="Beverage">Beverage</option>
+            <option value="Pastry">Pastry</option>
+            <option value="Dessert">Dessert</option>
+          </select>
+        </label>
+        <label class="field">Priority
+          <select id="tierFilter">
+            <option value="All">All tiers</option>
+            <option value="A">Tier A</option>
+            <option value="B">Tier B</option>
+            <option value="C">Tier C</option>
+            <option value="D">Tier D</option>
+          </select>
+        </label>
+        <label class="field search-field">Search brand
+          <input id="brandSearch" type="search" placeholder="e.g. Goldilocks" autocomplete="off">
+        </label>
+        <button id="resetFilters" class="button secondary">Reset</button>
+      </section>
+
+      <section id="view-overview" class="view active" data-view-panel="overview">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">EXECUTIVE OVERVIEW</div>
+            <h1>Start with Treats; win through QSR and city-cluster execution.</h1>
+            <p>Philippines Treats represents a 216K-outlet addressable pool. The current opportunity is concentrated enough to prioritize, but not yet calibrated to Anchor sales.</p>
+          </div>
+          <div class="confidence-badge"><span>MODEL CONFIDENCE</span><strong>Medium</strong><small>Observed market × modeled fit</small></div>
+        </div>
+        <div id="kpiStrip" class="kpi-strip" aria-label="Key metrics"></div>
+        <div class="insight-ribbon"><span class="insight-index">SO WHAT</span><strong id="overviewInsight">Beverage provides scale; pastry and dessert provide stronger modeled Anchor fit.</strong></div>
+        <div class="grid two-one">
+          <article class="panel">
+            <div class="signature-bar"></div>
+            <div class="panel-head"><div><div class="eyebrow">SEGMENT PRIORITY</div><h2>Scale × Anchor fit creates a two-speed portfolio</h2></div><span class="tag modeled">MODELED</span></div>
+            <div id="categoryBars" class="bar-list"></div>
+            <div class="source">Source: GAOYAN Philippines BI, 2026Q2; index weights are v0 working assumptions.</div>
+          </article>
+          <article class="panel">
+            <div class="signature-bar"></div>
+            <div class="panel-head"><div><div class="eyebrow">CHANNEL STRUCTURE</div><h2>QSR is the execution backbone</h2></div><span class="tag observed">OBSERVED</span></div>
+            <div id="channelBars" class="bar-list compact"></div>
+            <div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div>
+          </article>
+        </div>
+        <article class="panel">
+          <div class="signature-bar"></div>
+          <div class="panel-head"><div><div class="eyebrow">CITY CLUSTERS</div><h2>Quezon is the clear first cluster; Manila and Davao form the next wave</h2></div><button id="cityCountToggle" class="button tertiary">Show top 20</button></div>
+          <div id="cityBars" class="city-grid"></div>
+          <div class="legend"><span><i class="dot beverage"></i>Beverage</span><span><i class="dot pastry"></i>Pastry</span><span><i class="dot dessert"></i>Dessert</span></div>
+          <div class="source">Source: GAOYAN Philippines BI, 2026Q2. City ranking uses observed Treats outlets.</div>
+        </article>
+        <div class="readiness-banner">
+          <div><div class="eyebrow">ACTIVATION GAP</div><h2>Market prioritization is ready; account-level activation still needs three client datasets.</h2></div>
+          <button class="button primary jump-button" data-jump="method">View data contract</button>
+        </div>
+      </section>
+
+      <section id="view-category" class="view" data-view-panel="category">
+        <div class="page-heading"><div><div class="eyebrow">CATEGORY OPPORTUNITY</div><h1>Beverage brings reach; pastry and dessert sharpen Anchor relevance.</h1><p>Use the category index to sequence commercial effort, not as a sales forecast.</p></div></div>
+        <div id="categoryCards" class="category-list"></div>
+        <div class="grid equal">
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">CHAIN SAMPLE</div><h2>Top observed brands by category</h2></div><span class="tag observed">OBSERVED</span></div><div id="topBrandsByCategory"></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2.</div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">CITY MIX</div><h2>Top city composition</h2></div><span class="tag observed">OBSERVED</span></div><div id="cityMix"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
+        </div>
+      </section>
+
+      <section id="view-fit" class="view" data-view-panel="fit">
+        <div class="page-heading"><div><div class="eyebrow">ANCHOR FIT DIAGNOSTICS</div><h1>The menu signals are directionally favorable for dairy-led applications.</h1><p>Dairy represents 17.3% of main ingredients; sweet + creamy reaches 52.9%; baked + blended reaches 56.1%.</p></div></div>
+        <div class="grid three">
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">MATERIAL</div><h2>Dairy is a visible ingredient platform</h2></div><span class="tag observed">OBSERVED</span></div><div id="materialSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">FLAVOR</div><h2>Sweet and creamy dominate demand cues</h2></div><span class="tag observed">OBSERVED</span></div><div id="flavorSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">PROCESS</div><h2>Baked and blended shape application fit</h2></div><span class="tag observed">OBSERVED</span></div><div id="processSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
+        </div>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">V0 ASSUMPTIONS</div><h2>Every modeled factor is visible and editable</h2></div><span class="tag modeled">MODELED</span></div><div class="table-wrap"><table><thead><tr><th>Category</th><th>Observed outlets</th><th>Relative revenue weight</th><th>Anchor fit factor</th><th>Relative opportunity index</th><th>Confidence</th></tr></thead><tbody id="assumptionTable"></tbody></table></div><div class="source">The factors above are GAOYAN v0 working assumptions. Replace them after Anchor validation.</div></article>
+      </section>
+
+      <section id="view-targets" class="view" data-view-panel="targets">
+        <div class="page-heading"><div><div class="eyebrow">TARGET EXPLORER</div><h1>A transparent shortlist—not yet a definitive account plan.</h1><p>Priority tiers compare 15 observed chain samples. Open a row to see why it ranks and what data is missing.</p></div><button id="exportTargets" class="button primary">Export filtered CSV</button></div>
+        <div class="warning-banner"><strong>Prototype boundary</strong><span>Brand outlet counts are observed. Opportunity index and tiers are modeled. Coverage, revenue, whitespace, address and owner are pending.</span></div>
+        <article class="panel table-panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SAMPLE TARGETS</div><h2 id="targetTableTitle">15 brands ranked</h2></div><span class="tag modeled">RELATIVE INDEX</span></div><div class="table-wrap"><table class="target-table"><thead><tr><th>Rank</th><th>Brand</th><th>Category</th><th class="num">Listed outlets</th><th class="num">Opportunity index</th><th>Tier</th><th>Recommended application</th><th>Data status</th></tr></thead><tbody id="targetTableBody"></tbody></table></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2. Click any row for model details.</div></article>
+      </section>
+
+      <section id="view-method" class="view" data-view-panel="method">
+        <div class="page-heading"><div><div class="eyebrow">METHODOLOGY & DATA</div><h1>OTM turns market signals into a commercial action queue.</h1><p>v0 deliberately separates observed facts, modeled prioritization and missing client inputs.</p></div></div>
+        <div class="method-flow" aria-label="OTM method flow"><div><span>1</span><strong>Observe</strong><small>Market, channel, city, chain and menu signals</small></div><i></i><div><span>2</span><strong>Model</strong><small>Scale × revenue weight × Anchor fit</small></div><i></i><div><span>3</span><strong>Prioritize</strong><small>Relative index, tiers and recommended applications</small></div><i></i><div><span>4</span><strong>Activate</strong><small>Coverage, owners, outlet IDs and pipeline</small></div></div>
+        <div class="grid equal">
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">FORMULA</div><h2>Relative opportunity index</h2></div><span class="tag modeled">V0</span></div><div class="formula"><code>raw score = observed outlets × relative revenue weight × Anchor fit</code><code>index = raw score ÷ highest score in comparison set × 100</code></div><p class="body-copy">For brands, the comparison set is the 15-brand sample. For categories and cities, it is the visible market set. The result ranks relative priority; it is not currency.</p><div class="callout">No PHP value is shown because average revenue, dairy incidence, Anchor share and conversion assumptions have not been calibrated.</div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">INTERPRETATION</div><h2>What the tiers mean</h2></div></div><div class="tier-definitions"><div><span class="tier tier-a">A</span><p><strong>Top 20% of sample</strong> — validate coverage and assign an owner first.</p></div><div><span class="tier tier-b">B</span><p><strong>Next 30%</strong> — develop application proposition and distributor route.</p></div><div><span class="tier tier-c">C</span><p><strong>Next 30%</strong> — nurture by category playbook.</p></div><div><span class="tier tier-d">D</span><p><strong>Bottom 20%</strong> — maintain visibility; reassess with sales data.</p></div></div></article>
+        </div>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">DATA READINESS</div><h2>Inputs required to upgrade v0 into an executable OTM system</h2></div><span class="tag pending">PENDING</span></div><div class="table-wrap"><table><thead><tr><th>Required field</th><th>Status</th><th>What it unlocks</th></tr></thead><tbody id="readinessTable"></tbody></table></div><div class="source">Recommended minimum refresh cadence: market quarterly; customer/distributor pipeline monthly.</div></article>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SOURCE & LIMITATIONS</div><h2>Audit trail</h2></div></div><ul class="limitation-list"><li><strong>Observed:</strong> market, channel, city, brand sample, ingredient, flavor and process shares from the included 2026Q2 source workbook.</li><li><strong>Modeled:</strong> relative revenue weight, Anchor fit, normalized index and sample percentile tier.</li><li><strong>Not available:</strong> Anchor sell-in/sell-out, distributor coverage, SKU mix, outlet master, account owner, conversion stage and exact addresses.</li><li><strong>Use:</strong> workshop prioritization and data-contract alignment. Do not use v0 as a sales forecast or definitive coverage list.</li></ul></article>
+      </section>
+
+      <footer class="app-footer"><span>Source: GAOYAN Philippines BI · 2026Q2</span><span>ANCHOR PH OTM v0 · GAOYAN</span></footer>
+    </main>
+  </div>
+
+  <dialog id="brandDialog" class="brand-dialog">
+    <form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form>
+    <div id="brandDialogContent"></div>
+  </dialog>
+
+  <script src="data/model.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
