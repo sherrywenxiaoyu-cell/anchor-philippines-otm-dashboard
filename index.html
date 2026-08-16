@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#2355C8">
-  <meta name="description" content="Anchor Philippines OTM Dashboard v0 — transparent market prioritization prototype.">
-  <title>Anchor Philippines OTM Dashboard v0</title>
+  <meta name="description" content="Anchor Philippines BI market view and OTM readiness audit.">
+  <title>Anchor Philippines BI Market View + OTM Readiness</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="colors_and_type.css">
@@ -51,11 +51,11 @@
     </div>
     <div class="product-lockup">
       <div class="eyebrow">ANCHOR PHILIPPINES · 2026Q2</div>
-      <div class="product-title">OTM Dashboard <span class="version">v0</span></div>
+      <div class="product-title">BI Market View + OTM Readiness <span class="version">v0.1</span></div>
     </div>
     <div class="status-cluster">
-      <span class="status-pill">EXTERNAL-DATA PROTOTYPE</span>
-      <span class="period">Updated 14 Aug 2026</span>
+      <span class="status-pill">OTM NOT YET CALCULATED</span>
+      <span class="period">Audited 16 Aug 2026</span>
     </div>
   </header>
 
@@ -71,11 +71,11 @@
       </nav>
       <div class="side-note">
         <strong>What v0 can do</strong>
-        <p>Rank market segments and 15 observed chain samples with a transparent relative index.</p>
+        <p>Compare observed BI scale across categories, cities and 15 chain samples.</p>
       </div>
       <div class="side-note muted">
         <strong>What v0 cannot do</strong>
-        <p>Estimate PHP sales or identify exact white-space outlets without Anchor and distributor data.</p>
+        <p>Claim an OTM score before the Philippines model inputs are approved.</p>
       </div>
     </aside>
 
@@ -83,7 +83,7 @@
       <section class="control-bar" aria-label="Dashboard filters">
         <div class="control-copy">
           <div class="eyebrow">GLOBAL FILTERS</div>
-          <div id="filterSummary" class="filter-summary">All categories · All priority tiers</div>
+          <div id="filterSummary" class="filter-summary">All categories · All observed scale bands</div>
         </div>
         <label class="field">Category
           <select id="categoryFilter">
@@ -93,13 +93,13 @@
             <option value="Dessert">Dessert</option>
           </select>
         </label>
-        <label class="field">Priority
+        <label class="field">Observed scale band
           <select id="tierFilter">
-            <option value="All">All tiers</option>
-            <option value="A">Tier A</option>
-            <option value="B">Tier B</option>
-            <option value="C">Tier C</option>
-            <option value="D">Tier D</option>
+            <option value="All">All scale bands</option>
+            <option value="A">Scale band A</option>
+            <option value="B">Scale band B</option>
+            <option value="C">Scale band C</option>
+            <option value="D">Scale band D</option>
           </select>
         </label>
         <label class="field search-field">Search brand
@@ -115,16 +115,16 @@
             <h1>Start with Treats; win through QSR and city-cluster execution.</h1>
             <p>Philippines Treats represents a 216K-outlet addressable pool. The current opportunity is concentrated enough to prioritize, but not yet calibrated to Anchor sales.</p>
           </div>
-          <div class="confidence-badge"><span>MODEL CONFIDENCE</span><strong>Medium</strong><small>Observed market × modeled fit</small></div>
+          <div class="confidence-badge"><span>DATA STATUS</span><strong>BI observed</strong><small>OTM calibration pending</small></div>
         </div>
         <div id="kpiStrip" class="kpi-strip" aria-label="Key metrics"></div>
         <div class="insight-ribbon"><span class="insight-index">SO WHAT</span><strong id="overviewInsight">Beverage provides scale; pastry and dessert provide stronger modeled Anchor fit.</strong></div>
         <div class="grid two-one">
           <article class="panel">
             <div class="signature-bar"></div>
-            <div class="panel-head"><div><div class="eyebrow">SEGMENT PRIORITY</div><h2>Scale × Anchor fit creates a two-speed portfolio</h2></div><span class="tag modeled">MODELED</span></div>
+            <div class="panel-head"><div><div class="eyebrow">SEGMENT SCALE</div><h2>Observed outlet counts define the current comparison</h2></div><span class="tag observed">OBSERVED</span></div>
             <div id="categoryBars" class="bar-list"></div>
-            <div class="source">Source: GAOYAN Philippines BI, 2026Q2; index weights are v0 working assumptions.</div>
+            <div class="source">Source: GAOYAN Philippines BI, 2026Q2. Scale index is outlet count divided by the largest visible category; it is not OTM.</div>
           </article>
           <article class="panel">
             <div class="signature-bar"></div>
@@ -147,7 +147,7 @@
       </section>
 
       <section id="view-category" class="view" data-view-panel="category">
-        <div class="page-heading"><div><div class="eyebrow">CATEGORY OPPORTUNITY</div><h1>Beverage brings reach; pastry and dessert sharpen Anchor relevance.</h1><p>Use the category index to sequence commercial effort, not as a sales forecast.</p></div></div>
+        <div class="page-heading"><div><div class="eyebrow">CATEGORY SCALE</div><h1>Beverage brings reach; Anchor relevance still requires approved commercial inputs.</h1><p>Use this view to understand BI scale only; no OTM score is calculated.</p></div></div>
         <div id="categoryCards" class="category-list"></div>
         <div class="grid equal">
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">CHAIN SAMPLE</div><h2>Top observed brands by category</h2></div><span class="tag observed">OBSERVED</span></div><div id="topBrandsByCategory"></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2.</div></article>
@@ -162,27 +162,27 @@
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">FLAVOR</div><h2>Sweet and creamy dominate demand cues</h2></div><span class="tag observed">OBSERVED</span></div><div id="flavorSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">PROCESS</div><h2>Baked and blended shape application fit</h2></div><span class="tag observed">OBSERVED</span></div><div id="processSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
         </div>
-        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">V0 ASSUMPTIONS</div><h2>Every modeled factor is visible and editable</h2></div><span class="tag modeled">MODELED</span></div><div class="table-wrap"><table><thead><tr><th>Category</th><th>Observed outlets</th><th>Relative revenue weight</th><th>Anchor fit factor</th><th>Relative opportunity index</th><th>Confidence</th></tr></thead><tbody id="assumptionTable"></tbody></table></div><div class="source">The factors above are GAOYAN v0 working assumptions. Replace them after Anchor validation.</div></article>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">OTM READINESS</div><h2>Observed BI evidence is separated from unapproved model inputs</h2></div><span class="tag pending">PENDING</span></div><div class="table-wrap"><table><thead><tr><th>Category</th><th>Observed outlets</th><th>QSR share</th><th>Top-5 sample share</th><th>OTM score</th><th>Status</th></tr></thead><tbody id="assumptionTable"></tbody></table></div><div class="source">No revenue weight, Anchor fit or replacement OTM formula is applied in this audited version.</div></article>
       </section>
 
       <section id="view-targets" class="view" data-view-panel="targets">
-        <div class="page-heading"><div><div class="eyebrow">TARGET EXPLORER</div><h1>A transparent shortlist—not yet a definitive account plan.</h1><p>Priority tiers compare 15 observed chain samples. Open a row to see why it ranks and what data is missing.</p></div><button id="exportTargets" class="button primary">Export filtered CSV</button></div>
-        <div class="warning-banner"><strong>Prototype boundary</strong><span>Brand outlet counts are observed. Opportunity index and tiers are modeled. Coverage, revenue, whitespace, address and owner are pending.</span></div>
-        <article class="panel table-panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SAMPLE TARGETS</div><h2 id="targetTableTitle">15 brands ranked</h2></div><span class="tag modeled">RELATIVE INDEX</span></div><div class="table-wrap"><table class="target-table"><thead><tr><th>Rank</th><th>Brand</th><th>Category</th><th class="num">Listed outlets</th><th class="num">Opportunity index</th><th>Tier</th><th>Recommended application</th><th>Data status</th></tr></thead><tbody id="targetTableBody"></tbody></table></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2. Click any row for model details.</div></article>
+        <div class="page-heading"><div><div class="eyebrow">BRAND SCALE EXPLORER</div><h1>A BI-observed list—not yet an OTM account plan.</h1><p>Brands are ordered only by listed BI outlet count. Open a row to see the OTM readiness gap.</p></div><button id="exportTargets" class="button primary">Export filtered CSV</button></div>
+        <div class="warning-banner"><strong>Audit boundary</strong><span>Brand outlet counts are observed. Scale index and bands only normalize those counts; they are not OTM. Coverage, revenue, whitespace, address and owner are pending.</span></div>
+        <article class="panel table-panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">OBSERVED BRAND SAMPLE</div><h2 id="targetTableTitle">15 brands ranked by outlet count</h2></div><span class="tag observed">BI SCALE</span></div><div class="table-wrap"><table class="target-table"><thead><tr><th>Rank</th><th>Brand</th><th>Category</th><th class="num">Listed outlets</th><th class="num">Outlet scale index</th><th>Scale band</th><th>Recommended application</th><th>OTM status</th></tr></thead><tbody id="targetTableBody"></tbody></table></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2. Click any row for data status.</div></article>
       </section>
 
       <section id="view-method" class="view" data-view-panel="method">
-        <div class="page-heading"><div><div class="eyebrow">METHODOLOGY & DATA</div><h1>OTM turns market signals into a commercial action queue.</h1><p>v0 deliberately separates observed facts, modeled prioritization and missing client inputs.</p></div></div>
-        <div class="method-flow" aria-label="OTM method flow"><div><span>1</span><strong>Observe</strong><small>Market, channel, city, chain and menu signals</small></div><i></i><div><span>2</span><strong>Model</strong><small>Scale × revenue weight × Anchor fit</small></div><i></i><div><span>3</span><strong>Prioritize</strong><small>Relative index, tiers and recommended applications</small></div><i></i><div><span>4</span><strong>Activate</strong><small>Coverage, owners, outlet IDs and pipeline</small></div></div>
+        <div class="page-heading"><div><div class="eyebrow">METHODOLOGY & DATA</div><h1>The original OTM formula is retained; the Philippines score is pending calibration.</h1><p>This audited version separates BI facts from every parameter that still needs approval.</p></div></div>
+        <div class="method-flow" aria-label="OTM method flow"><div><span>1</span><strong>Observe</strong><small>BI outlet, channel, city, rating, review and price signals</small></div><i></i><div><span>2</span><strong>Calibrate</strong><small>Segment, traffic, location, spend ratio and Anchor fit</small></div><i></i><div><span>3</span><strong>Calculate</strong><small>Apply the original OTM formula at outlet level</small></div><i></i><div><span>4</span><strong>Activate</strong><small>Coverage, owners, outlet IDs and pipeline</small></div></div>
         <div class="grid equal">
-          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">FORMULA</div><h2>Relative opportunity index</h2></div><span class="tag modeled">V0</span></div><div class="formula"><code>raw score = observed outlets × relative revenue weight × Anchor fit</code><code>index = raw score ÷ highest score in comparison set × 100</code></div><p class="body-copy">For brands, the comparison set is the 15-brand sample. For categories and cities, it is the visible market set. The result ranks relative priority; it is not currency.</p><div class="callout">No PHP value is shown because average revenue, dairy incidence, Anchor share and conversion assumptions have not been calibrated.</div></article>
-          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">INTERPRETATION</div><h2>What the tiers mean</h2></div></div><div class="tier-definitions"><div><span class="tier tier-a">A</span><p><strong>Top 20% of sample</strong> — validate coverage and assign an owner first.</p></div><div><span class="tier tier-b">B</span><p><strong>Next 30%</strong> — develop application proposition and distributor route.</p></div><div><span class="tier tier-c">C</span><p><strong>Next 30%</strong> — nurture by category playbook.</p></div><div><span class="tier tier-d">D</span><p><strong>Bottom 20%</strong> — maintain visibility; reassess with sales data.</p></div></div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">ORIGINAL FORMULA</div><h2>Outlet-level OTM</h2></div><span class="tag pending">PENDING INPUTS</span></div><div class="formula"><code>OTM Score = Revenue Proxy × Anchor Addressable Spend Ratio</code><code>Revenue Proxy = Outlet Count × Meals per Day × Avg Price per Meal × Days of Operating</code><code>Meals per Day = Segment Baseline × Traffic Signal Index × Location Adjustment</code><code>Traffic Signal Index = 50% Review Volume Index + 50% Rating Index</code><code>Anchor Addressable Spend Ratio = Category Spend Ratio × Anchor Fit Coefficient</code></div><p class="body-copy">This is the formula used in the original Indonesia OTM methodology. The audited Philippines dashboard does not replace or simplify it.</p><div class="callout">A score is intentionally withheld until every non-BI input is approved and documented.</div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">CURRENT STATUS</div><h2>What is known vs. pending</h2></div></div><div class="tier-definitions"><div><span class="tier tier-a">BI</span><p><strong>Observed:</strong> outlet counts, categories, cities, brand sample and menu signals.</p></div><div><span class="tier tier-b">BI</span><p><strong>Outlet fields:</strong> cuisine, business type, rating, review, price band and coordinates where available.</p></div><div><span class="tier tier-c">TBC</span><p><strong>Model inputs:</strong> segment baseline, operating days, location adjustment and peer-group mappings.</p></div><div><span class="tier tier-d">TBC</span><p><strong>Anchor inputs:</strong> category spend ratio, fit coefficient, sales and distributor coverage.</p></div></div></article>
         </div>
         <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">DATA READINESS</div><h2>Inputs required to upgrade v0 into an executable OTM system</h2></div><span class="tag pending">PENDING</span></div><div class="table-wrap"><table><thead><tr><th>Required field</th><th>Status</th><th>What it unlocks</th></tr></thead><tbody id="readinessTable"></tbody></table></div><div class="source">Recommended minimum refresh cadence: market quarterly; customer/distributor pipeline monthly.</div></article>
-        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SOURCE & LIMITATIONS</div><h2>Audit trail</h2></div></div><ul class="limitation-list"><li><strong>Observed:</strong> market, channel, city, brand sample, ingredient, flavor and process shares from the included 2026Q2 source workbook.</li><li><strong>Modeled:</strong> relative revenue weight, Anchor fit, normalized index and sample percentile tier.</li><li><strong>Not available:</strong> Anchor sell-in/sell-out, distributor coverage, SKU mix, outlet master, account owner, conversion stage and exact addresses.</li><li><strong>Use:</strong> workshop prioritization and data-contract alignment. Do not use v0 as a sales forecast or definitive coverage list.</li></ul></article>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SOURCE & LIMITATIONS</div><h2>Audit trail</h2></div></div><ul class="limitation-list"><li><strong>Observed:</strong> market, channel, city, brand sample, ingredient, flavor and process shares from GAOYAN Philippines BI, 2026Q2.</li><li><strong>Derived but not OTM:</strong> simple outlet-count normalization and rank bands, clearly labeled as BI scale.</li><li><strong>Not calculated:</strong> segment baseline, traffic index, revenue proxy, Anchor addressable spend ratio and OTM score.</li><li><strong>Use:</strong> BI market orientation and OTM data-contract alignment. Do not use as a sales forecast or definitive coverage list.</li></ul></article>
       </section>
 
-      <footer class="app-footer"><span>Source: GAOYAN Philippines BI · 2026Q2</span><span>ANCHOR PH OTM v0 · GAOYAN</span></footer>
+      <footer class="app-footer"><span>Source: GAOYAN Philippines BI · 2026Q2</span><span>ANCHOR PH · BI VIEW / OTM READINESS · GAOYAN</span></footer>
     </main>
   </div>
 
