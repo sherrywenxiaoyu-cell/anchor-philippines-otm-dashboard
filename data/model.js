@@ -3,10 +3,10 @@ window.ANCHOR_DATA = {
     client: "Anchor Philippines",
     market: "Philippines",
     period: "2026Q2",
-    version: "v0",
-    status: "EXTERNAL-DATA PROTOTYPE",
+    version: "v0.1 audit",
+    status: "BI-OBSERVED / OTM NOT CALCULATED",
     source: "GAOYAN Philippines BI dashboard / Philippines Treats source extract",
-    limitation: "Aggregated market data only. No Anchor customer sales, distributor coverage, outlet IDs, account owners, or calibrated PHP opportunity values are included."
+    limitation: "Observed BI market data only. The dashboard does not calculate OTM until Philippines segment baselines, peer-group indices, operating days, location adjustment, category spend ratios and Anchor fit coefficients are approved."
   },
   marketL1: [
     { name: "Others", outlets: 234988 },
@@ -17,9 +17,9 @@ window.ANCHOR_DATA = {
     { name: "Non-Asian Dining", outlets: 15428 }
   ],
   categories: [
-    { name: "Beverage", outlets: 134184, qsrOutlets: 108757, listedChainOutlets: 15903, top5Outlets: 2957, revenueWeight: 1.00, anchorFit: 1.15, confidence: "Medium", applications: ["Whipping cream", "Cream cheese", "Butter-based beverages"] },
-    { name: "Pastry", outlets: 60117, qsrOutlets: 58817, listedChainOutlets: 8699, top5Outlets: 2723, revenueWeight: 1.15, anchorFit: 1.20, confidence: "Medium", applications: ["Butter", "Whipping cream", "Cream cheese"] },
-    { name: "Dessert", outlets: 21659, qsrOutlets: 20989, listedChainOutlets: 4537, top5Outlets: 1382, revenueWeight: 1.10, anchorFit: 1.25, confidence: "Medium", applications: ["Whipping cream", "Cream cheese", "Butter"] }
+    { name: "Beverage", outlets: 134184, qsrOutlets: 108757, listedChainOutlets: 15903, top5Outlets: 2957, otmStatus: "Pending calibration", applications: ["Whipping cream", "Cream cheese", "Butter-based beverages"] },
+    { name: "Pastry", outlets: 60117, qsrOutlets: 58817, listedChainOutlets: 8699, top5Outlets: 2723, otmStatus: "Pending calibration", applications: ["Butter", "Whipping cream", "Cream cheese"] },
+    { name: "Dessert", outlets: 21659, qsrOutlets: 20989, listedChainOutlets: 4537, top5Outlets: 1382, otmStatus: "Pending calibration", applications: ["Whipping cream", "Cream cheese", "Butter"] }
   ],
   channels: [
     { name: "QSR", beverage: 108757, pastry: 58817, dessert: 20989 },
@@ -103,6 +103,11 @@ window.ANCHOR_DATA = {
     ]
   },
   readiness: [
+    { field: "Philippines segment baseline", status: "Pending", use: "Set meals/day by Business Type L2 × Cuisine L2" },
+    { field: "Peer-group rating/review export", status: "Partial", use: "QSR × Pastry is validated nationally; remaining peer groups are pending" },
+    { field: "Operating days and location rule", status: "Pending", use: "Complete the revenue proxy without hidden assumptions" },
+    { field: "Category spend ratio", status: "Pending", use: "Estimate the share of operator revenue addressable by dairy" },
+    { field: "Approved Anchor fit coefficient", status: "Pending", use: "Map Anchor SKUs/applications to cuisine and menu evidence" },
     { field: "Anchor customer sales", status: "Pending", use: "Calibrate PHP opportunity and white-space" },
     { field: "Distributor outlet coverage", status: "Pending", use: "Separate covered vs. uncovered outlets" },
     { field: "SKU / application mapping", status: "Pending", use: "Recommend product and recipe by account" },
