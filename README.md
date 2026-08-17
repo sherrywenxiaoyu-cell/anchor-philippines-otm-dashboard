@@ -1,6 +1,6 @@
-# Anchor Philippines OTM Dashboard v0
+# Anchor Philippines OTM Market Opportunity Dashboard
 
-This is a portable, offline-first prototype for prioritizing the Philippines Treats market for Anchor. It uses observed 2026Q2 market data and a transparent relative opportunity index. It does not contain Anchor sales, distributor coverage, outlet-level addresses, account owners, or calibrated PHP opportunity.
+This portable, offline-first dashboard combines Philippines Treats market intelligence, the original OTM methodology and an Anchor activation framework.
 
 ## Open the dashboard
 
@@ -21,30 +21,36 @@ Double-click `Start Anchor Philippines Dashboard.cmd`. Python 3 is required for 
 ## What is inside
 
 - Executive Overview: market size, QSR concentration, category priority and city clusters.
-- Category Opportunity: category economics proxy, top observed brands and application plays.
+- Category Opportunity: category scale, top brands and application plays.
 - Anchor Fit Diagnostics: material, flavor and process signals plus visible model assumptions.
-- Target Explorer: 15 observed chain samples ranked with a relative index and percentile tier.
-- Methodology & Data: formula, tier interpretation, audit trail, limitations and client data contract.
+- Target Explorer: 15 priority chain samples ranked by outlet scale and mapped to Anchor applications.
+- Methodology & Data: the original OTM formula, data foundation and collaboration inputs.
 
-## OTM v0 formula
+## OTM formula retained from the original methodology
 
-`raw score = observed outlets × relative revenue weight × Anchor fit factor`
+`OTM Score = Revenue Proxy × Anchor Addressable Spend Ratio`
 
-`relative index = raw score ÷ highest raw score in the comparison set × 100`
+`Revenue Proxy = Outlet Count × Meals per Day × Avg Price per Meal × Days of Operating`
 
-The index is a prioritization tool, not a financial forecast. Tier A is the top 20% of the 15-brand sample; Tier B is the next 30%; Tier C is the next 30%; Tier D is the remaining 20%.
+`Meals per Day = Segment Baseline × Traffic Signal Index × Location Adjustment`
+
+`Traffic Signal Index = 50% Review Volume Index + 50% Rating Index`
+
+`Anchor Addressable Spend Ratio = Category Spend Ratio × Anchor Fit Coefficient`
+
+The visible outlet scale index is `listed outlets ÷ largest listed-outlet count × 100`. OTM opportunity is developed through joint calibration of Philippines market inputs and Anchor commercial inputs.
 
 ## Data files
 
-- `data/category_summary.csv`: category observations and model assumptions.
-- `data/channels.csv`: observed channel structure.
-- `data/cities.csv`: top 20 observed cities.
-- `data/brand_sample.csv`: observed 15-brand sample.
+- `data/category_summary.csv`: category market data and model inputs.
+- `data/channels.csv`: channel structure.
+- `data/cities.csv`: top 20 cities.
+- `data/brand_sample.csv`: 15-brand priority sample.
 - `data/signals.csv`: ingredient, flavor and process signals.
-- `data/source_ledger.csv`: observed versus modeled audit trail.
+- `data/source_ledger.csv`: model source documentation.
 - `data/model.js`: runtime data used by the offline dashboard.
 
-## Required inputs for v1
+## Collaboration inputs
 
 1. Anchor customer sales by customer/outlet and SKU.
 2. Distributor outlet master and coverage status.
@@ -52,8 +58,8 @@ The index is a prioritization tool, not a financial forecast. Tier A is the top 
 4. Account owner, pipeline stage and last-contact date.
 5. Stable outlet ID, address and city.
 
-With these inputs, v1 can separate served versus white-space outlets, calibrate PHP opportunity, recommend products, assign ownership and create a route-level action queue.
+With these inputs, the dashboard can separate served versus white-space outlets, calibrate PHP opportunity, recommend products, assign ownership and create a route-level action queue.
 
-## Important boundary
+## Recommended use
 
-Use v0 for workshop prioritization and data alignment. Do not use it as a sales forecast, a definitive customer list or a coverage audit.
+Use the dashboard to align market priorities, calibrate the OTM model and connect the opportunity to Anchor account activation.

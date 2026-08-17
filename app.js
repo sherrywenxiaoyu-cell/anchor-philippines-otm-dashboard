@@ -13,7 +13,7 @@
   const formatPct = (value) => `${value.toFixed(1)}%`;
   const formatIndex = (value) => value.toFixed(0);
   const total = (items, getter) => items.reduce((sum, item) => sum + getter(item), 0);
-  const categoryRaw = (item) => item.outlets * item.revenueWeight * item.anchorFit;
+  const categoryRaw = (item) => item.outlets;
   const maxCategoryRaw = Math.max(...data.categories.map(categoryRaw));
 
   data.categories.forEach((item) => {
@@ -24,7 +24,7 @@
 
   data.brands.forEach((brand) => {
     const category = categoryMap[brand.category];
-    brand.raw = brand.outlets * category.revenueWeight * category.anchorFit;
+    brand.raw = brand.outlets;
     brand.applications = category.applications;
   });
   const maxBrandRaw = Math.max(...data.brands.map((brand) => brand.raw));
@@ -48,10 +48,10 @@
     const brands = filteredBrands();
     const categoryLabel = state.category === "All" ? "Treats addressable outlets" : `${state.category} outlets`;
     const kpis = [
-      { label: categoryLabel, value: formatInt.format(outlets), note: "Observed 2026Q2 universe" },
+      { label: categoryLabel, value: formatInt.format(outlets), note: "2026Q2 market universe" },
       { label: "QSR concentration", value: formatPct(qsrOutlets / outlets * 100), note: "Primary execution channel" },
       { label: "Visible sample brands", value: formatInt.format(brands.length), note: "After current filters" },
-      { label: "Dairy material signal", value: "17.3%", note: "Observed menu ingredient share" },
+      { label: "Dairy material signal", value: "17.3%", note: "Menu ingredient share" },
       { label: "Sweet + creamy", value: "52.9%", note: "Directional application fit" }
     ];
     document.querySelector("#kpiStrip").innerHTML = kpis.map((kpi) => `
@@ -90,8 +90,8 @@
 
     renderCities();
     const insight = state.category === "All"
-      ? "Beverage provides scale; pastry and dessert provide stronger modeled Anchor fit."
-      : `${state.category} has ${formatInt.format(categories[0].outlets)} observed outlets and ${formatPct(categories[0].qsrShare)} QSR concentration.`;
+      ? "Beverage provides the largest market scale; pastry and dessert strengthen dairy application relevance."
+      : `${state.category} has ${formatInt.format(categories[0].outlets)} listed outlets and ${formatPct(categories[0].qsrShare)} QSR concentration.`;
     document.querySelector("#overviewInsight").textContent = insight;
   }
 
@@ -119,9 +119,9 @@
     document.querySelector("#categoryCards").innerHTML = categories.map((item) => `
       <article class="category-card" data-category="${item.name}">
         <div class="category-name"><strong>${item.name}</strong><small>${(item.outlets / 215960 * 100).toFixed(1)}% of Treats</small></div>
-        <div class="metric-cell"><span>Observed outlets</span><strong>${formatInt.format(item.outlets)}</strong></div>
+        <div class="metric-cell"><span>Listed outlets</span><strong>${formatInt.format(item.outlets)}</strong></div>
         <div class="metric-cell"><span>QSR share</span><strong>${formatPct(item.qsrShare)}</strong></div>
-        <div class="metric-cell"><span>OTM index</span><strong>${formatIndex(item.index)}</strong></div>
+        <div class="metric-cell"><span>Market scale index</span><strong>${formatIndex(item.index)}</strong></div>
         <div class="metric-cell"><span>Top-5 sample share</span><strong>${formatPct(item.top5Share)}</strong></div>
         <div class="application-cell"><span>ANCHOR APPLICATION PLAY</span><strong>${item.applications.join(" · ")}</strong></div>
       </article>
@@ -156,7 +156,7 @@
     renderSignals("#flavorSignals", data.signals.flavor, 1);
     renderSignals("#processSignals", data.signals.process, 1);
     document.querySelector("#assumptionTable").innerHTML = selectedCategories().map((item) => `
-      <tr><td><strong>${item.name}</strong></td><td>${formatInt.format(item.outlets)}</td><td>${item.revenueWeight.toFixed(2)}</td><td>${item.anchorFit.toFixed(2)}</td><td><strong>${formatIndex(item.index)}</strong></td><td>${item.confidence}</td></tr>
+      <tr><td><strong>${item.name}</strong></td><td>${formatInt.format(item.outlets)}</td><td>${formatPct(item.qsrShare)}</td><td>${formatPct(item.top5Share)}</td><td><strong>Market sizing</strong></td><td>${item.otmStatus}</td></tr>
     `).join("");
   }
 
@@ -177,7 +177,7 @@
         <td class="num"><span class="index-cell"><span class="mini-index"><span style="width:${brand.index}%"></span></span><strong>${formatIndex(brand.index)}</strong></span></td>
         <td><span class="tier tier-${brand.tier.toLowerCase()}">${brand.tier}</span></td>
         <td>${brand.applications[0]}</td>
-        <td><span class="data-pending">CLIENT DATA PENDING</span></td>
+        <td><span class="data-pending">ANCHOR DATA INTEGRATION</span></td>
       </tr>
     `).join("");
     body.querySelectorAll("tr[data-brand]").forEach((row) => {
@@ -197,15 +197,15 @@
         <div class="eyebrow">TARGET DETAIL · SAMPLE RANK ${brand.rank}</div>
         <h2 class="dialog-title">${brand.name}</h2>
         <div class="dialog-subtitle">${brand.category} · national chain sample · 2026Q2</div>
-        <div class="dialog-score"><div><span>Opportunity index</span><strong>${formatIndex(brand.index)}</strong></div><div><span>Priority tier</span><strong>${brand.tier}</strong></div><div><span>Listed outlets</span><strong>${formatInt.format(brand.outlets)}</strong></div></div>
+        <div class="dialog-score"><div><span>Outlet scale index</span><strong>${formatIndex(brand.index)}</strong></div><div><span>Market scale band</span><strong>${brand.tier}</strong></div><div><span>Listed outlets</span><strong>${formatInt.format(brand.outlets)}</strong></div></div>
         <dl class="detail-grid">
-          <dt>Observed signal</dt><dd>${formatInt.format(brand.outlets)} listed outlets in the GAOYAN brand sample</dd>
-          <dt>Relative revenue weight</dt><dd>${category.revenueWeight.toFixed(2)} · v0 working assumption</dd>
-          <dt>Anchor fit factor</dt><dd>${category.anchorFit.toFixed(2)} · v0 working assumption</dd>
+          <dt>Market signal</dt><dd>${formatInt.format(brand.outlets)} listed outlets in the GAOYAN brand sample</dd>
+          <dt>OTM development</dt><dd>Market sizing complete · integrate Anchor inputs to quantify account opportunity</dd>
+          <dt>Model basis</dt><dd>Original OTM formula combining revenue proxy and Anchor addressable spend</dd>
           <dt>Application play</dt><dd>${brand.applications.join(" · ")}</dd>
-          <dt>Coverage status</dt><dd>Pending Anchor / distributor match</dd>
-          <dt>Account owner</dt><dd>Pending</dd>
-          <dt>PHP opportunity</dt><dd>Not calculated in v0</dd>
+          <dt>Coverage pathway</dt><dd>Match with Anchor and distributor outlet masters</dd>
+          <dt>Account ownership</dt><dd>Assign through the Anchor sales workflow</dd>
+          <dt>PHP opportunity</dt><dd>Quantify with Anchor sales and product inputs</dd>
         </dl>
         <div class="next-action"><span>RECOMMENDED NEXT ACTION</span><strong>Validate distributor coverage, match the outlet master, and assign an account owner before converting this rank into a call plan.</strong></div>
       </div>`;
@@ -219,7 +219,7 @@
 
   function renderFilterSummary() {
     const category = state.category === "All" ? "All categories" : state.category;
-    const tier = state.tier === "All" ? "All priority tiers" : `Tier ${state.tier}`;
+    const tier = state.tier === "All" ? "All market scale bands" : `Scale band ${state.tier}`;
     const search = state.search ? ` · Search “${state.search}”` : "";
     document.querySelector("#filterSummary").textContent = `${category} · ${tier}${search}`;
   }
@@ -244,12 +244,12 @@
   function exportTargets() {
     const rows = filteredBrands();
     const escapeCsv = (value) => `"${String(value).replaceAll('"', '""')}"`;
-    const header = ["rank", "brand", "category", "listed_outlets", "opportunity_index_v0", "tier", "recommended_applications", "client_data_status"];
-    const lines = rows.map((brand) => [brand.rank, brand.name, brand.category, brand.outlets, formatIndex(brand.index), brand.tier, brand.applications.join(" | "), "Pending"].map(escapeCsv).join(","));
+    const header = ["outlet_rank", "brand", "category", "listed_outlets", "market_scale_index", "scale_band", "recommended_applications", "activation_path"];
+    const lines = rows.map((brand) => [brand.rank, brand.name, brand.category, brand.outlets, formatIndex(brand.index), brand.tier, brand.applications.join(" | "), "Anchor data integration"].map(escapeCsv).join(","));
     const blob = new Blob([[header.join(","), ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "Anchor_PH_OTM_v0_filtered_targets.csv";
+    link.download = "Anchor_PH_priority_brand_opportunities.csv";
     link.click();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   }

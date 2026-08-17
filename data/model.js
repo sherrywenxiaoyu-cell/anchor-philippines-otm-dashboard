@@ -3,10 +3,8 @@ window.ANCHOR_DATA = {
     client: "Anchor Philippines",
     market: "Philippines",
     period: "2026Q2",
-    version: "v0",
-    status: "EXTERNAL-DATA PROTOTYPE",
     source: "GAOYAN Philippines BI dashboard / Philippines Treats source extract",
-    limitation: "Aggregated market data only. No Anchor customer sales, distributor coverage, outlet IDs, account owners, or calibrated PHP opportunity values are included."
+    scope: "Philippines Treats market opportunity, OTM model development and Anchor activation framework."
   },
   marketL1: [
     { name: "Others", outlets: 234988 },
@@ -17,9 +15,9 @@ window.ANCHOR_DATA = {
     { name: "Non-Asian Dining", outlets: 15428 }
   ],
   categories: [
-    { name: "Beverage", outlets: 134184, qsrOutlets: 108757, listedChainOutlets: 15903, top5Outlets: 2957, revenueWeight: 1.00, anchorFit: 1.15, confidence: "Medium", applications: ["Whipping cream", "Cream cheese", "Butter-based beverages"] },
-    { name: "Pastry", outlets: 60117, qsrOutlets: 58817, listedChainOutlets: 8699, top5Outlets: 2723, revenueWeight: 1.15, anchorFit: 1.20, confidence: "Medium", applications: ["Butter", "Whipping cream", "Cream cheese"] },
-    { name: "Dessert", outlets: 21659, qsrOutlets: 20989, listedChainOutlets: 4537, top5Outlets: 1382, revenueWeight: 1.10, anchorFit: 1.25, confidence: "Medium", applications: ["Whipping cream", "Cream cheese", "Butter"] }
+    { name: "Beverage", outlets: 134184, qsrOutlets: 108757, listedChainOutlets: 15903, top5Outlets: 2957, otmStatus: "Integrate Anchor inputs", applications: ["Whipping cream", "Cream cheese", "Butter-based beverages"] },
+    { name: "Pastry", outlets: 60117, qsrOutlets: 58817, listedChainOutlets: 8699, top5Outlets: 2723, otmStatus: "Integrate Anchor inputs", applications: ["Butter", "Whipping cream", "Cream cheese"] },
+    { name: "Dessert", outlets: 21659, qsrOutlets: 20989, listedChainOutlets: 4537, top5Outlets: 1382, otmStatus: "Integrate Anchor inputs", applications: ["Whipping cream", "Cream cheese", "Butter"] }
   ],
   channels: [
     { name: "QSR", beverage: 108757, pastry: 58817, dessert: 20989 },
@@ -103,10 +101,15 @@ window.ANCHOR_DATA = {
     ]
   },
   readiness: [
-    { field: "Anchor customer sales", status: "Pending", use: "Calibrate PHP opportunity and white-space" },
-    { field: "Distributor outlet coverage", status: "Pending", use: "Separate covered vs. uncovered outlets" },
-    { field: "SKU / application mapping", status: "Pending", use: "Recommend product and recipe by account" },
-    { field: "Account owner and stage", status: "Pending", use: "Turn ranking into an executable call plan" },
-    { field: "Outlet ID / address", status: "Pending", use: "Enable deduplication, map and route planning" }
+    { field: "Philippines segment baseline", status: "Joint calibration", use: "Set meals/day by Business Type L2 × Cuisine L2" },
+    { field: "Peer-group rating/review export", status: "GAOYAN market data", use: "Calibrate traffic signals by relevant peer group" },
+    { field: "Operating days and location rule", status: "Joint calibration", use: "Complete the revenue proxy at outlet level" },
+    { field: "Category spend ratio", status: "Anchor input", use: "Estimate the share of operator revenue addressable by dairy" },
+    { field: "Anchor fit coefficient", status: "Anchor input", use: "Map Anchor SKUs and applications to cuisine and menu evidence" },
+    { field: "Anchor customer sales", status: "Anchor input", use: "Quantify PHP opportunity and white-space" },
+    { field: "Distributor outlet coverage", status: "Distributor input", use: "Separate covered and white-space outlets" },
+    { field: "SKU / application mapping", status: "Anchor input", use: "Recommend product and recipe by account" },
+    { field: "Account owner and stage", status: "Anchor input", use: "Turn ranking into an executable call plan" },
+    { field: "Outlet ID / address", status: "Data integration", use: "Enable deduplication, mapping and route planning" }
   ]
 };
