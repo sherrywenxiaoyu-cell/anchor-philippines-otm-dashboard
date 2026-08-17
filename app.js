@@ -177,7 +177,7 @@
         <td class="num"><span class="index-cell"><span class="mini-index"><span style="width:${brand.index}%"></span></span><strong>${formatIndex(brand.index)}</strong></span></td>
         <td><span class="tier tier-${brand.tier.toLowerCase()}">${brand.tier}</span></td>
         <td>${brand.applications[0]}</td>
-        <td><span class="data-pending">ANCHOR DATA INTEGRATION</span></td>
+        <td><span class="data-input">ANCHOR DATA INTEGRATION</span></td>
       </tr>
     `).join("");
     body.querySelectorAll("tr[data-brand]").forEach((row) => {
@@ -213,8 +213,8 @@
     if (typeof dialog.showModal === "function") dialog.showModal(); else dialog.setAttribute("open", "");
   }
 
-  function renderReadiness() {
-    document.querySelector("#readinessTable").innerHTML = data.readiness.map((item) => `<tr><td><strong>${item.field}</strong></td><td><span class="data-pending">${item.status.toUpperCase()}</span></td><td>${item.use}</td></tr>`).join("");
+  function renderCollaborationInputs() {
+    document.querySelector("#collaborationTable").innerHTML = data.collaborationInputs.map((item) => `<tr><td><strong>${item.field}</strong></td><td><span class="data-input">${item.status.toUpperCase()}</span></td><td>${item.use}</td></tr>`).join("");
   }
 
   function renderFilterSummary() {
@@ -231,7 +231,7 @@
     renderCategoryView();
     renderFit();
     renderTargets();
-    renderReadiness();
+    renderCollaborationInputs();
   }
 
   function activateView(view) {

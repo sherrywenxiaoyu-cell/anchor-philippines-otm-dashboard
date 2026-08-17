@@ -100,7 +100,7 @@ window.ANCHOR_DATA = {
       { name: "Boiled", share: 2.8765 }
     ]
   },
-  readiness: [
+  collaborationInputs: [
     { field: "Philippines segment baseline", status: "Joint calibration", use: "Set meals/day by Business Type L2 × Cuisine L2" },
     { field: "Peer-group rating/review export", status: "GAOYAN market data", use: "Calibrate traffic signals by relevant peer group" },
     { field: "Operating days and location rule", status: "Joint calibration", use: "Complete the revenue proxy at outlet level" },
