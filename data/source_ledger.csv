@@ -6,5 +6,11 @@ Brand sample,2026Q2,GAOYAN Philippines BI dashboard,Market data,Priority chain r
 Ingredient/flavor/process,2026Q2,GAOYAN Philippines BI dashboard,Market data,Anchor fit signals
 Revenue proxy,OTM methodology,Formula component,Model input,Outlet Count × Meals per Day × Avg Price per Meal × Days of Operating
 Anchor fit,Anchor commercial input,Joint calibration,Model input,Maps applications and SKUs to outlet relevance
-Original OTM formula,2026-05-29,UFS Indonesia OTM Model Logic and Data Notes,Methodology,Retained for Philippines calibration
+Original OTM formula,2026-05-29,GAOYAN regional OTM methodology,Methodology,Retained for Philippines calibration
 QSR × Pastry traffic peer group,2026Q2,GAOYAN Philippines BI Restaurant List export,Market data and derived index,58817 outlets; Goldilocks SM MOA traffic signal validated at 1.25 using the original OTM methodology
+Category segment baselines,Base planning case,Regional OTM segment benchmark adapted for Philippines,Planning assumption,Beverage 160; Pastry 120; Dessert 125 meals/day
+Average spend proxies,Base planning case,Category-level commercial planning assumptions,Planning assumption,Beverage PHP 150; Pastry PHP 300; Dessert PHP 200
+Operating days and location,Base planning case,Conservative annualization and neutral location rule,Planning assumption,350 days/year; traffic 1.00 and location 1.00 at category level
+Category spend ratios,Base planning case,Anchor-relevant dairy wallet assumptions,Planning assumption,Beverage 3.0%; Pastry 3.5%; Dessert 4.0%
+Anchor fit coefficients,Base planning case,Menu application relevance assumptions,Planning assumption,Beverage 1.10; Pastry 1.15; Dessert 1.20
+Goldilocks reference outlet,2026Q2,GAOYAN Philippines BI Restaurant List and peer export,Market data and derived estimate,SM Mall of Asia Foodshop; traffic 1.25; PHP 450 price proxy; estimated annual OTM PHP 950906

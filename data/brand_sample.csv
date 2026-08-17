@@ -1,16 +1,16 @@
-brand,category,listed_outlets
-BigBrew,Beverage,1257
-PICKUP COFFEE,Beverage,550
-Starbucks,Beverage,486
-KKOPI.Tea,Beverage,341
-Don Macchiatos,Beverage,323
-Goldilocks,Pastry,745
-Dunkin',Pastry,730
-Red Ribbon,Pastry,463
-Mister Donut,Pastry,422
-Julie's Bakeshop,Pastry,363
-Aice Ice Cream,Dessert,355
-Don Benito's,Dessert,351
-Famous Belgian Waffles,Dessert,253
-Selecta Ice Cream Shop,Dessert,248
-Avocadoria,Dessert,175
+brand,category,listed_outlets,otm_per_outlet_php,estimated_annual_otm_php,planning_rank
+Goldilocks,Pastry,745,507150,377826750,1
+Dunkin',Pastry,730,507150,370219500,2
+BigBrew,Beverage,1257,277200,348440400,3
+Red Ribbon,Pastry,463,507150,234810450,4
+Mister Donut,Pastry,422,507150,214017300,5
+Julie's Bakeshop,Pastry,363,507150,184095450,6
+PICKUP COFFEE,Beverage,550,277200,152460000,7
+Aice Ice Cream,Dessert,355,420000,149100000,8
+Don Benito's,Dessert,351,420000,147420000,9
+Starbucks,Beverage,486,277200,134719200,10
+Famous Belgian Waffles,Dessert,253,420000,106260000,11
+Selecta Ice Cream Shop,Dessert,248,420000,104160000,12
+KKOPI.Tea,Beverage,341,277200,94525200,13
+Don Macchiatos,Beverage,323,277200,89535600,14
+Avocadoria,Dessert,175,420000,73500000,15

@@ -70,11 +70,11 @@
       </nav>
       <div class="side-note">
         <strong>Dashboard scope</strong>
-        <p>Compare market scale across categories, cities and 15 priority chain samples.</p>
+        <p>Compare market scale and annual OTM estimates across categories and 15 priority chain samples.</p>
       </div>
       <div class="side-note muted">
-        <strong>Activation pathway</strong>
-        <p>Connect market priorities with Anchor customer and distributor inputs.</p>
+        <strong>Estimate basis</strong>
+        <p>Base planning case using category assumptions; not current Anchor sales.</p>
       </div>
     </aside>
 
@@ -92,13 +92,13 @@
             <option value="Dessert">Dessert</option>
           </select>
         </label>
-        <label class="field">Market scale band
+        <label class="field">OTM priority band
           <select id="tierFilter">
-            <option value="All">All scale bands</option>
-            <option value="A">Scale band A</option>
-            <option value="B">Scale band B</option>
-            <option value="C">Scale band C</option>
-            <option value="D">Scale band D</option>
+            <option value="All">All priority bands</option>
+            <option value="A">Priority band A</option>
+            <option value="B">Priority band B</option>
+            <option value="C">Priority band C</option>
+            <option value="D">Priority band D</option>
           </select>
         </label>
         <label class="field search-field">Search brand
@@ -111,13 +111,13 @@
         <div class="page-heading">
           <div>
             <div class="eyebrow">EXECUTIVE OVERVIEW</div>
-            <h1>Start with Treats; win through QSR and city-cluster execution.</h1>
-            <p>Philippines Treats represents a 216K-outlet addressable pool, with clear category, channel and city priorities for Anchor.</p>
+            <h1>The base model converts Treats scale into a quantified Anchor opportunity.</h1>
+            <p>Philippines Treats represents a 216K-outlet market pool; a transparent base case now sizes annual OTM for 15 priority chain samples.</p>
           </div>
           <div class="confidence-badge"><span>MARKET COVERAGE</span><strong>Philippines Treats</strong><small>2026Q2</small></div>
         </div>
         <div id="kpiStrip" class="kpi-strip" aria-label="Key metrics"></div>
-        <div class="insight-ribbon"><span class="insight-index">SO WHAT</span><strong id="overviewInsight">Beverage provides scale; pastry and dessert provide stronger modeled Anchor fit.</strong></div>
+        <div class="insight-ribbon"><span class="insight-index">SO WHAT</span><strong id="overviewInsight">The base model quantifies the 15-brand planning sample and highlights the largest Anchor opportunities.</strong></div>
         <div class="grid two-one">
           <article class="panel">
             <div class="signature-bar"></div>
@@ -140,13 +140,13 @@
           <div class="source">Source: GAOYAN Philippines BI, 2026Q2. City ranking uses Treats outlet counts.</div>
         </article>
         <div class="activation-banner">
-          <div><div class="eyebrow">NEXT STEP</div><h2>Connect market priorities with Anchor customer, distributor and product data.</h2></div>
-          <button class="button primary jump-button" data-jump="method">View activation framework</button>
+          <div><div class="eyebrow">CALIBRATION PATH</div><h2>Use Anchor sales, operator purchasing and distributor coverage to replace planning assumptions.</h2></div>
+          <button class="button primary jump-button" data-jump="method">Review model assumptions</button>
         </div>
       </section>
 
       <section id="view-category" class="view" data-view-panel="category">
-        <div class="page-heading"><div><div class="eyebrow">CATEGORY OPPORTUNITY</div><h1>Beverage brings reach; pastry and dessert strengthen dairy application relevance.</h1><p>Compare category scale, QSR concentration and priority application plays.</p></div></div>
+        <div class="page-heading"><div><div class="eyebrow">CATEGORY OPPORTUNITY</div><h1>Pastry leads per-outlet OTM; beverage provides the widest route to market.</h1><p>Compare category scale, annual OTM per outlet and Anchor application plays under the base planning case.</p></div></div>
         <div id="categoryCards" class="category-list"></div>
         <div class="grid equal">
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">CHAIN SAMPLE</div><h2>Top brands by category</h2></div><span class="tag market">MARKET DATA</span></div><div id="topBrandsByCategory"></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2.</div></article>
@@ -161,24 +161,24 @@
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">FLAVOR</div><h2>Sweet and creamy dominate demand cues</h2></div><span class="tag market">MARKET DATA</span></div><div id="flavorSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">PROCESS</div><h2>Baked and blended shape application fit</h2></div><span class="tag market">MARKET DATA</span></div><div id="processSignals" class="bar-list compact"></div><div class="source">Source: GAOYAN Philippines BI, 2026Q2.</div></article>
         </div>
-        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">OTM DEVELOPMENT</div><h2>Market opportunity inputs by category</h2></div><span class="tag market">OTM FRAMEWORK</span></div><div class="table-wrap"><table><thead><tr><th>Category</th><th>Listed outlets</th><th>QSR share</th><th>Top-5 sample share</th><th>Model stage</th><th>Next step</th></tr></thead><tbody id="assumptionTable"></tbody></table></div><div class="source">Category potential will be quantified through the original OTM framework using jointly calibrated Philippines and Anchor inputs.</div></article>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">OTM BASE CASE</div><h2>Category assumptions and annual OTM per outlet</h2></div><span class="tag modeled">PLANNING ESTIMATE</span></div><div class="table-wrap"><table><thead><tr><th>Category</th><th>Baseline meals/day</th><th>Avg price</th><th>Traffic / location</th><th>Category ratio / fit</th><th>OTM / outlet / year</th></tr></thead><tbody id="assumptionTable"></tbody></table></div><div class="source">Base case: 350 operating days; neutral traffic and location factors at 1.00. Values are planning estimates calculated with the original OTM formula.</div></article>
       </section>
 
       <section id="view-targets" class="view" data-view-panel="targets">
-        <div class="page-heading"><div><div class="eyebrow">BRAND OPPORTUNITY EXPLORER</div><h1>Prioritize national brands by scale and application fit.</h1><p>Explore leading chain samples by outlet footprint, category and Anchor application play.</p></div><button id="exportTargets" class="button primary">Export filtered CSV</button></div>
-        <div class="warning-banner"><strong>Prioritization logic</strong><span>Market scale identifies where to focus first; Anchor sales and distributor data convert brand priority into account-level activation.</span></div>
-        <article class="panel table-panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">PRIORITY BRAND SAMPLE</div><h2 id="targetTableTitle">15 brands ranked by outlet count</h2></div><span class="tag market">MARKET SCALE</span></div><div class="table-wrap"><table class="target-table"><thead><tr><th>Rank</th><th>Brand</th><th>Category</th><th class="num">Listed outlets</th><th class="num">Outlet scale index</th><th>Scale band</th><th>Recommended application</th><th>Activation path</th></tr></thead><tbody id="targetTableBody"></tbody></table></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2. Click any row for opportunity detail.</div></article>
+        <div class="page-heading"><div><div class="eyebrow">BRAND OPPORTUNITY EXPLORER</div><h1>Prioritize national brands by estimated annual OTM.</h1><p>Explore 15 chain samples using BI outlet scale and transparent category-level planning assumptions.</p></div><button id="exportTargets" class="button primary">Export filtered CSV</button></div>
+        <div class="warning-banner"><strong>Planning estimate</strong><span>OTM is an annual addressable-spend proxy, not current Anchor sales or a committed revenue forecast. Click a brand to inspect every assumption.</span></div>
+        <article class="panel table-panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">PRIORITY BRAND SAMPLE</div><h2 id="targetTableTitle">15 brands ranked by estimated OTM</h2></div><span class="tag modeled">PLANNING ESTIMATE</span></div><div class="table-wrap"><table class="target-table"><thead><tr><th>Rank</th><th>Brand</th><th>Category</th><th class="num">Listed outlets</th><th class="num">Est. annual OTM</th><th class="num">OTM index</th><th>Priority band</th><th>Recommended application</th></tr></thead><tbody id="targetTableBody"></tbody></table></div><div class="source">Source: GAOYAN Philippines BI brand sample, 2026Q2 ｜ Method: original OTM formula ｜ Assumptions: category base planning case. Click any row for the calculation.</div></article>
       </section>
 
       <section id="view-method" class="view" data-view-panel="method">
-        <div class="page-heading"><div><div class="eyebrow">METHODOLOGY & DATA</div><h1>OTM combines market potential with Anchor commercial relevance.</h1><p>The framework moves from market intelligence to calibrated opportunity and account activation.</p></div></div>
+        <div class="page-heading"><div><div class="eyebrow">METHODOLOGY & DATA</div><h1>OTM combines market potential with Anchor commercial relevance.</h1><p>The dashboard now presents a complete base planning case while keeping every commercial assumption visible and replaceable.</p></div></div>
         <div class="method-flow" aria-label="OTM method flow"><div><span>1</span><strong>Observe</strong><small>BI outlet, channel, city, rating, review and price signals</small></div><i></i><div><span>2</span><strong>Calibrate</strong><small>Segment, traffic, location, spend ratio and Anchor fit</small></div><i></i><div><span>3</span><strong>Calculate</strong><small>Apply the original OTM formula at outlet level</small></div><i></i><div><span>4</span><strong>Activate</strong><small>Coverage, owners, outlet IDs and pipeline</small></div></div>
         <div class="grid equal">
-          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">OTM FORMULA</div><h2>Outlet-level opportunity</h2></div><span class="tag market">OTM FRAMEWORK</span></div><div class="formula"><code>OTM Score = Revenue Proxy × Anchor Addressable Spend Ratio</code><code>Revenue Proxy = Outlet Count × Meals per Day × Avg Price per Meal × Days of Operating</code><code>Meals per Day = Segment Baseline × Traffic Signal Index × Location Adjustment</code><code>Traffic Signal Index = 50% Review Volume Index + 50% Rating Index</code><code>Anchor Addressable Spend Ratio = Category Spend Ratio × Anchor Fit Coefficient</code></div><p class="body-copy">The Philippines model follows the original OTM methodology and combines market scale, traffic signals and Anchor commercial relevance.</p><div class="callout">Joint calibration translates the market opportunity into an actionable account-level score.</div></article>
+          <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">OTM FORMULA</div><h2>Outlet-level opportunity</h2></div><span class="tag modeled">BASE PLANNING CASE</span></div><div class="formula"><code>OTM Score = Revenue Proxy × Anchor Addressable Spend Ratio</code><code>Revenue Proxy = Outlet Count × Meals per Day × Avg Price per Meal × Days of Operating</code><code>Meals per Day = Segment Baseline × Traffic Signal Index × Location Adjustment</code><code>Traffic Signal Index = 50% Review Volume Index + 50% Rating Index</code><code>Anchor Addressable Spend Ratio = Category Spend Ratio × Anchor Fit Coefficient</code></div><p class="body-copy">The Philippines model follows the original OTM methodology and combines BI market scale with category-level commercial assumptions.</p><div class="callout">The base case uses traffic 1.00, location 1.00 and 350 days; the Goldilocks SM MOA example uses its validated traffic signal of 1.25.</div></article>
           <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">DATA FOUNDATION</div><h2>Inputs supporting the OTM model</h2></div></div><div class="tier-definitions"><div><span class="tier tier-a">MKT</span><p><strong>Market structure:</strong> outlet counts, categories, cities, brand sample and menu signals.</p></div><div><span class="tier tier-b">OUT</span><p><strong>Outlet profile:</strong> cuisine, business type, rating, review, price band and coordinates where available.</p></div><div><span class="tier tier-c">MOD</span><p><strong>Model calibration:</strong> segment baseline, operating days, location adjustment and peer-group mappings.</p></div><div><span class="tier tier-d">ANC</span><p><strong>Anchor inputs:</strong> category spend ratio, fit coefficient, sales and distributor coverage.</p></div></div></article>
         </div>
         <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">COLLABORATION INPUTS</div><h2>Inputs that unlock outlet-level activation</h2></div><span class="tag market">ACTION PLAN</span></div><div class="table-wrap"><table><thead><tr><th>Input</th><th>Contribution</th><th>Business outcome</th></tr></thead><tbody id="collaborationTable"></tbody></table></div><div class="source">Recommended minimum refresh cadence: market quarterly; customer/distributor pipeline monthly.</div></article>
-        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SOURCE & COVERAGE</div><h2>Data and model scope</h2></div></div><ul class="limitation-list"><li><strong>Market intelligence:</strong> market, channel, city, brand sample, ingredient, flavor and process shares from GAOYAN Philippines BI, 2026Q2.</li><li><strong>Opportunity lens:</strong> outlet-count normalization and scale bands support category and brand prioritization.</li><li><strong>OTM calibration:</strong> segment, traffic, revenue and Anchor relevance inputs are integrated through the original OTM formula.</li><li><strong>Activation:</strong> Anchor sales and distributor data connect opportunity sizing to coverage, ownership and account action.</li></ul></article>
+        <article class="panel"><div class="signature-bar"></div><div class="panel-head"><div><div class="eyebrow">SOURCE & COVERAGE</div><h2>Data and model scope</h2></div></div><ul class="limitation-list"><li><strong>Market intelligence:</strong> market, channel, city, brand sample, ingredient, flavor and process shares from GAOYAN Philippines BI, 2026Q2.</li><li><strong>Planning assumptions:</strong> meals/day, average spend, operating days, category spend ratio and Anchor fit are transparent category baselines.</li><li><strong>OTM calculation:</strong> annual brand estimates equal listed outlets × category OTM per outlet under the original formula.</li><li><strong>Interpretation:</strong> the result is an addressable-spend proxy, not actual Anchor sales, operator revenue or a committed forecast.</li><li><strong>Calibration:</strong> Anchor sales, operator purchasing and distributor coverage should replace assumptions during account planning.</li></ul></article>
       </section>
 
       <footer class="app-footer"><span>Source: GAOYAN Philippines BI · 2026Q2</span><span>ANCHOR PH · OTM MARKET OPPORTUNITY · GAOYAN</span></footer>

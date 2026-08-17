@@ -1,7 +1,7 @@
 {
-  "name": "Anchor Philippines OTM Dashboard v0",
+  "name": "Anchor Philippines OTM Dashboard",
   "short_name": "Anchor PH OTM",
-  "description": "A transparent opportunity-to-market prototype for Anchor Philippines.",
+  "description": "A transparent opportunity-to-market planning dashboard for Anchor Philippines.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

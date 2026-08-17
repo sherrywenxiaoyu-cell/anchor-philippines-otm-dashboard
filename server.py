@@ -28,7 +28,7 @@ def main() -> None:
     handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(ROOT))
     server = http.server.ThreadingHTTPServer((HOST, port), handler)
     url = f"http://{HOST}:{port}/"
-    print("Anchor Philippines OTM Dashboard v0")
+    print("Anchor Philippines OTM Dashboard")
     print(f"Open: {url}")
     print("Press Ctrl+C in this window to stop the dashboard.")
     threading.Timer(0.8, lambda: webbrowser.open(url)).start()

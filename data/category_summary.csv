@@ -1,4 +1,4 @@
-category,outlets,qsr_outlets,listed_chain_outlets,top5_outlets,revenue_weight_v0,anchor_fit_v0,confidence
-Beverage,134184,108757,15903,2957,1.00,1.15,Medium
-Pastry,60117,58817,8699,2723,1.15,1.20,Medium
-Dessert,21659,20989,4537,1382,1.10,1.25,Medium
+category,outlets,qsr_outlets,listed_chain_outlets,top5_outlets,segment_baseline,traffic_signal,location_adjustment,avg_price_php,operating_days,category_spend_ratio,anchor_fit_coefficient,meals_per_day,revenue_proxy_per_outlet_php,addressable_spend_ratio,otm_per_outlet_php,confidence
+Beverage,134184,108757,15903,2957,160,1.00,1.00,150,350,0.030,1.10,160,8400000,0.033,277200,Medium
+Pastry,60117,58817,8699,2723,120,1.00,1.00,300,350,0.035,1.15,120,12600000,0.04025,507150,Medium
+Dessert,21659,20989,4537,1382,125,1.00,1.00,200,350,0.040,1.20,125,8750000,0.048,420000,Medium

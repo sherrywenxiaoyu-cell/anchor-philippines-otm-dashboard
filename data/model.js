@@ -3,8 +3,12 @@ window.ANCHOR_DATA = {
     client: "Anchor Philippines",
     market: "Philippines",
     period: "2026Q2",
+    scenario: "Base planning case",
+    currency: "PHP",
+    estimateAsOf: "17 Aug 2026",
     source: "GAOYAN Philippines BI dashboard / Philippines Treats source extract",
-    scope: "Philippines Treats market opportunity, OTM model development and Anchor activation framework."
+    scope: "Philippines Treats market opportunity, OTM base-case sizing and Anchor activation framework.",
+    estimateBasis: "BI outlet counts combined with category-level planning assumptions. Estimates are annual opportunity proxies, not current Anchor sales."
   },
   marketL1: [
     { name: "Others", outlets: 234988 },
@@ -15,9 +19,27 @@ window.ANCHOR_DATA = {
     { name: "Non-Asian Dining", outlets: 15428 }
   ],
   categories: [
-    { name: "Beverage", outlets: 134184, qsrOutlets: 108757, listedChainOutlets: 15903, top5Outlets: 2957, otmStatus: "Integrate Anchor inputs", applications: ["Whipping cream", "Cream cheese", "Butter-based beverages"] },
-    { name: "Pastry", outlets: 60117, qsrOutlets: 58817, listedChainOutlets: 8699, top5Outlets: 2723, otmStatus: "Integrate Anchor inputs", applications: ["Butter", "Whipping cream", "Cream cheese"] },
-    { name: "Dessert", outlets: 21659, qsrOutlets: 20989, listedChainOutlets: 4537, top5Outlets: 1382, otmStatus: "Integrate Anchor inputs", applications: ["Whipping cream", "Cream cheese", "Butter"] }
+    {
+      name: "Beverage", outlets: 134184, qsrOutlets: 108757, listedChainOutlets: 15903, top5Outlets: 2957,
+      segmentBaseline: 160, trafficSignal: 1.00, locationAdjustment: 1.00, avgPricePhp: 150, operatingDays: 350,
+      categorySpendRatio: 0.030, anchorFit: 1.10, confidence: "Medium",
+      rationale: "High-frequency beverage occasion; conservative PHP 150 spend proxy and moderate dairy wallet.",
+      applications: ["Whipping cream", "Cream cheese", "Butter-based beverages"]
+    },
+    {
+      name: "Pastry", outlets: 60117, qsrOutlets: 58817, listedChainOutlets: 8699, top5Outlets: 2723,
+      segmentBaseline: 120, trafficSignal: 1.00, locationAdjustment: 1.00, avgPricePhp: 300, operatingDays: 350,
+      categorySpendRatio: 0.035, anchorFit: 1.15, confidence: "Medium",
+      rationale: "Lower daily volume than beverages, but higher spend and stronger butter, cream and cream-cheese relevance.",
+      applications: ["Butter", "Whipping cream", "Cream cheese"]
+    },
+    {
+      name: "Dessert", outlets: 21659, qsrOutlets: 20989, listedChainOutlets: 4537, top5Outlets: 1382,
+      segmentBaseline: 125, trafficSignal: 1.00, locationAdjustment: 1.00, avgPricePhp: 200, operatingDays: 350,
+      categorySpendRatio: 0.040, anchorFit: 1.20, confidence: "Medium",
+      rationale: "Moderate volume and spend, with the strongest modeled dairy intensity across the three Treats categories.",
+      applications: ["Whipping cream", "Cream cheese", "Butter"]
+    }
   ],
   channels: [
     { name: "QSR", beverage: 108757, pastry: 58817, dessert: 20989 },
@@ -56,7 +78,26 @@ window.ANCHOR_DATA = {
     { name: "Starbucks", category: "Beverage", outlets: 486 },
     { name: "KKOPI.Tea", category: "Beverage", outlets: 341 },
     { name: "Don Macchiatos", category: "Beverage", outlets: 323 },
-    { name: "Goldilocks", category: "Pastry", outlets: 745 },
+    {
+      name: "Goldilocks", category: "Pastry", outlets: 745,
+      referenceOutlet: {
+        name: "Goldilocks - SM Mall of Asia Foodshop",
+        shopId: "3396122",
+        rating: 4.4652,
+        reviews: 181,
+        reviewPercentile: 94.26,
+        reviewIndex: 1.50,
+        ratingPercentile: 32.91,
+        ratingIndex: 1.00,
+        trafficSignal: 1.25,
+        avgPricePhp: 450,
+        segmentBaseline: 120,
+        locationAdjustment: 1.00,
+        operatingDays: 350,
+        categorySpendRatio: 0.035,
+        anchorFit: 1.15
+      }
+    },
     { name: "Dunkin'", category: "Pastry", outlets: 730 },
     { name: "Red Ribbon", category: "Pastry", outlets: 463 },
     { name: "Mister Donut", category: "Pastry", outlets: 422 },
@@ -101,15 +142,15 @@ window.ANCHOR_DATA = {
     ]
   },
   collaborationInputs: [
-    { field: "Philippines segment baseline", status: "Joint calibration", use: "Set meals/day by Business Type L2 × Cuisine L2" },
-    { field: "Peer-group rating/review export", status: "GAOYAN market data", use: "Calibrate traffic signals by relevant peer group" },
-    { field: "Operating days and location rule", status: "Joint calibration", use: "Complete the revenue proxy at outlet level" },
-    { field: "Category spend ratio", status: "Anchor input", use: "Estimate the share of operator revenue addressable by dairy" },
-    { field: "Anchor fit coefficient", status: "Anchor input", use: "Map Anchor SKUs and applications to cuisine and menu evidence" },
-    { field: "Anchor customer sales", status: "Anchor input", use: "Quantify PHP opportunity and white-space" },
-    { field: "Distributor outlet coverage", status: "Distributor input", use: "Separate covered and white-space outlets" },
-    { field: "SKU / application mapping", status: "Anchor input", use: "Recommend product and recipe by account" },
-    { field: "Account owner and stage", status: "Anchor input", use: "Turn ranking into an executable call plan" },
-    { field: "Outlet ID / address", status: "Data integration", use: "Enable deduplication, mapping and route planning" }
+    { field: "Philippines segment baseline", status: "Base estimate available", use: "160 Beverage · 120 Pastry · 125 Dessert meals/day" },
+    { field: "Peer-group rating/review export", status: "Validated example", use: "Goldilocks SM MOA traffic signal = 1.25; category base case = 1.00" },
+    { field: "Operating days and location rule", status: "Base estimate available", use: "350 days/year · neutral location factor 1.00" },
+    { field: "Category spend ratio", status: "Base estimate available", use: "3.0% Beverage · 3.5% Pastry · 4.0% Dessert" },
+    { field: "Anchor fit coefficient", status: "Base estimate available", use: "1.10 Beverage · 1.15 Pastry · 1.20 Dessert" },
+    { field: "Anchor customer sales", status: "Calibration input", use: "Replace the planning estimate with account-specific wallet and white-space" },
+    { field: "Distributor outlet coverage", status: "Activation input", use: "Separate covered and white-space outlets" },
+    { field: "SKU / application mapping", status: "Activation input", use: "Recommend product and recipe by account" },
+    { field: "Account owner and stage", status: "Activation input", use: "Turn the OTM ranking into an executable call plan" },
+    { field: "Outlet ID / address", status: "Activation input", use: "Enable deduplication, mapping and route planning" }
   ]
 };

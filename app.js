@@ -11,7 +11,15 @@
   const categoryMap = Object.fromEntries(data.categories.map((item) => [item.name, item]));
   const formatInt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
   const formatPct = (value) => `${value.toFixed(1)}%`;
+  const formatPct2 = (value) => `${value.toFixed(2)}%`;
   const formatIndex = (value) => value.toFixed(0);
+  const formatPhp = (value) => {
+    if (value >= 1_000_000_000) return `PHP ${(value / 1_000_000_000).toFixed(2)}B`;
+    if (value >= 1_000_000) return `PHP ${(value / 1_000_000).toFixed(2)}M`;
+    if (value >= 1_000) return `PHP ${(value / 1_000).toFixed(0)}K`;
+    return `PHP ${formatInt.format(value)}`;
+  };
+  const formatPhpMillions = (value) => `PHP ${(value / 1_000_000).toFixed(2)}M`;
   const total = (items, getter) => items.reduce((sum, item) => sum + getter(item), 0);
   const categoryRaw = (item) => item.outlets;
   const maxCategoryRaw = Math.max(...data.categories.map(categoryRaw));
@@ -20,12 +28,26 @@
     item.index = categoryRaw(item) / maxCategoryRaw * 100;
     item.qsrShare = item.qsrOutlets / item.outlets * 100;
     item.top5Share = item.top5Outlets / item.listedChainOutlets * 100;
+    item.mealsPerDay = item.segmentBaseline * item.trafficSignal * item.locationAdjustment;
+    item.revenueProxyPerOutlet = item.mealsPerDay * item.avgPricePhp * item.operatingDays;
+    item.addressableSpendRatio = item.categorySpendRatio * item.anchorFit;
+    item.otmPerOutlet = item.revenueProxyPerOutlet * item.addressableSpendRatio;
   });
 
   data.brands.forEach((brand) => {
     const category = categoryMap[brand.category];
-    brand.raw = brand.outlets;
+    brand.estimatedOtm = brand.outlets * category.otmPerOutlet;
+    brand.raw = brand.estimatedOtm;
     brand.applications = category.applications;
+    brand.otmPerOutlet = category.otmPerOutlet;
+    brand.assumptions = category;
+    if (brand.referenceOutlet) {
+      const outlet = brand.referenceOutlet;
+      outlet.mealsPerDay = outlet.segmentBaseline * outlet.trafficSignal * outlet.locationAdjustment;
+      outlet.revenueProxy = outlet.mealsPerDay * outlet.avgPricePhp * outlet.operatingDays;
+      outlet.addressableSpendRatio = outlet.categorySpendRatio * outlet.anchorFit;
+      outlet.estimatedOtm = outlet.revenueProxy * outlet.addressableSpendRatio;
+    }
   });
   const maxBrandRaw = Math.max(...data.brands.map((brand) => brand.raw));
   [...data.brands].sort((a, b) => b.raw - a.raw).forEach((brand, index) => {
@@ -39,20 +61,25 @@
     .filter((brand) => state.category === "All" || brand.category === state.category)
     .filter((brand) => state.tier === "All" || brand.tier === state.tier)
     .filter((brand) => brand.name.toLowerCase().includes(state.search.toLowerCase()))
-    .sort((a, b) => b.raw - a.raw);
+    .sort((a, b) => b.estimatedOtm - a.estimatedOtm);
 
   function renderKpis() {
     const categories = selectedCategories();
     const outlets = total(categories, (item) => item.outlets);
     const qsrOutlets = total(categories, (item) => item.qsrOutlets);
     const brands = filteredBrands();
+    const sampleOtm = total(brands, (brand) => brand.estimatedOtm);
+    const perOutletValues = categories.map((item) => item.otmPerOutlet);
+    const perOutletLabel = perOutletValues.length === 1
+      ? formatPhp(perOutletValues[0])
+      : `${formatPhp(Math.min(...perOutletValues)).replace("PHP ", "PHP ")}–${formatPhp(Math.max(...perOutletValues)).replace("PHP ", "")}`;
     const categoryLabel = state.category === "All" ? "Treats addressable outlets" : `${state.category} outlets`;
     const kpis = [
       { label: categoryLabel, value: formatInt.format(outlets), note: "2026Q2 market universe" },
       { label: "QSR concentration", value: formatPct(qsrOutlets / outlets * 100), note: "Primary execution channel" },
-      { label: "Visible sample brands", value: formatInt.format(brands.length), note: "After current filters" },
-      { label: "Dairy material signal", value: "17.3%", note: "Menu ingredient share" },
-      { label: "Sweet + creamy", value: "52.9%", note: "Directional application fit" }
+      { label: "Annual OTM estimate", value: formatPhp(sampleOtm), note: `${brands.length}-brand planning sample` },
+      { label: "OTM per outlet", value: perOutletLabel, note: "Category base-case range" },
+      { label: "Dairy material signal", value: "17.3%", note: "Menu ingredient share" }
     ];
     document.querySelector("#kpiStrip").innerHTML = kpis.map((kpi) => `
       <div class="kpi"><span class="kpi-label">${kpi.label}</span><strong class="kpi-value">${kpi.value}</strong><span class="kpi-note">${kpi.note}</span></div>
@@ -90,8 +117,8 @@
 
     renderCities();
     const insight = state.category === "All"
-      ? "Beverage provides the largest market scale; pastry and dessert strengthen dairy application relevance."
-      : `${state.category} has ${formatInt.format(categories[0].outlets)} listed outlets and ${formatPct(categories[0].qsrShare)} QSR concentration.`;
+      ? `The 15-brand base case estimates ${formatPhp(total(data.brands, (brand) => brand.estimatedOtm))} in annual OTM, led by Goldilocks, Dunkin' and BigBrew.`
+      : `${state.category} has ${formatInt.format(categories[0].outlets)} listed outlets and a base OTM of ${formatPhp(categories[0].otmPerOutlet)} per outlet per year.`;
     document.querySelector("#overviewInsight").textContent = insight;
   }
 
@@ -121,15 +148,15 @@
         <div class="category-name"><strong>${item.name}</strong><small>${(item.outlets / 215960 * 100).toFixed(1)}% of Treats</small></div>
         <div class="metric-cell"><span>Listed outlets</span><strong>${formatInt.format(item.outlets)}</strong></div>
         <div class="metric-cell"><span>QSR share</span><strong>${formatPct(item.qsrShare)}</strong></div>
-        <div class="metric-cell"><span>Market scale index</span><strong>${formatIndex(item.index)}</strong></div>
-        <div class="metric-cell"><span>Top-5 sample share</span><strong>${formatPct(item.top5Share)}</strong></div>
+        <div class="metric-cell"><span>OTM / outlet / year</span><strong>${formatPhp(item.otmPerOutlet)}</strong></div>
+        <div class="metric-cell"><span>Addressable ratio</span><strong>${formatPct2(item.addressableSpendRatio * 100)}</strong></div>
         <div class="application-cell"><span>ANCHOR APPLICATION PLAY</span><strong>${item.applications.join(" · ")}</strong></div>
       </article>
     `).join("");
 
     document.querySelector("#topBrandsByCategory").innerHTML = categories.map((category) => {
       const brands = data.brands.filter((brand) => brand.category === category.name).sort((a, b) => b.outlets - a.outlets).slice(0, 5);
-      return `<div class="mini-group"><h3>${category.name}</h3><div class="brand-chip-list">${brands.map((brand) => `<span class="brand-chip">${brand.name} · ${formatInt.format(brand.outlets)}</span>`).join("")}</div></div>`;
+      return `<div class="mini-group"><h3>${category.name}</h3><div class="brand-chip-list">${brands.map((brand) => `<span class="brand-chip">${brand.name} · ${formatPhp(brand.estimatedOtm)}</span>`).join("")}</div></div>`;
     }).join("");
 
     const topCities = [...data.cities].sort((a, b) => cityValue(b) - cityValue(a)).slice(0, 6);
@@ -156,13 +183,20 @@
     renderSignals("#flavorSignals", data.signals.flavor, 1);
     renderSignals("#processSignals", data.signals.process, 1);
     document.querySelector("#assumptionTable").innerHTML = selectedCategories().map((item) => `
-      <tr><td><strong>${item.name}</strong></td><td>${formatInt.format(item.outlets)}</td><td>${formatPct(item.qsrShare)}</td><td>${formatPct(item.top5Share)}</td><td><strong>Market sizing</strong></td><td>${item.otmStatus}</td></tr>
+      <tr>
+        <td><strong>${item.name}</strong></td>
+        <td>${formatInt.format(item.segmentBaseline)}</td>
+        <td>PHP ${formatInt.format(item.avgPricePhp)}</td>
+        <td>${item.trafficSignal.toFixed(2)} / ${item.locationAdjustment.toFixed(2)}</td>
+        <td>${formatPct(item.categorySpendRatio * 100)} / ${item.anchorFit.toFixed(2)}</td>
+        <td><strong>${formatPhp(item.otmPerOutlet)}</strong></td>
+      </tr>
     `).join("");
   }
 
   function renderTargets() {
     const brands = filteredBrands();
-    document.querySelector("#targetTableTitle").textContent = `${brands.length} ${brands.length === 1 ? "brand" : "brands"} ranked`;
+    document.querySelector("#targetTableTitle").textContent = `${brands.length} ${brands.length === 1 ? "brand" : "brands"} ranked by estimated OTM`;
     const body = document.querySelector("#targetTableBody");
     if (!brands.length) {
       body.innerHTML = '<tr><td colspan="8"><div class="empty-state"><strong>No brands match these filters.</strong><br>Reset filters or broaden the search.</div></td></tr>';
@@ -174,10 +208,10 @@
         <td><strong>${brand.name}</strong></td>
         <td><span class="category-label">${brand.category}</span></td>
         <td class="num">${formatInt.format(brand.outlets)}</td>
+        <td class="num"><strong>${formatPhp(brand.estimatedOtm)}</strong></td>
         <td class="num"><span class="index-cell"><span class="mini-index"><span style="width:${brand.index}%"></span></span><strong>${formatIndex(brand.index)}</strong></span></td>
         <td><span class="tier tier-${brand.tier.toLowerCase()}">${brand.tier}</span></td>
         <td>${brand.applications[0]}</td>
-        <td><span class="data-input">ANCHOR DATA INTEGRATION</span></td>
       </tr>
     `).join("");
     body.querySelectorAll("tr[data-brand]").forEach((row) => {
@@ -192,22 +226,30 @@
     const brand = data.brands.find((item) => item.name === name);
     if (!brand) return;
     const category = categoryMap[brand.category];
+    const referenceOutlet = brand.referenceOutlet;
+    const referenceBlock = referenceOutlet ? `
+      <div class="reference-case">
+        <span>VALIDATED OUTLET EXAMPLE</span>
+        <strong>${referenceOutlet.name}</strong>
+        <p>BI rating ${referenceOutlet.rating.toFixed(2)} · ${formatInt.format(referenceOutlet.reviews)} reviews · traffic ${referenceOutlet.trafficSignal.toFixed(2)} · price proxy PHP ${formatInt.format(referenceOutlet.avgPricePhp)} · estimated annual OTM ${formatPhpMillions(referenceOutlet.estimatedOtm)}.</p>
+      </div>` : "";
     document.querySelector("#brandDialogContent").innerHTML = `
       <div class="dialog-content">
-        <div class="eyebrow">TARGET DETAIL · SAMPLE RANK ${brand.rank}</div>
+        <div class="eyebrow">OTM DETAIL · PLANNING RANK ${brand.rank}</div>
         <h2 class="dialog-title">${brand.name}</h2>
-        <div class="dialog-subtitle">${brand.category} · national chain sample · 2026Q2</div>
-        <div class="dialog-score"><div><span>Outlet scale index</span><strong>${formatIndex(brand.index)}</strong></div><div><span>Market scale band</span><strong>${brand.tier}</strong></div><div><span>Listed outlets</span><strong>${formatInt.format(brand.outlets)}</strong></div></div>
+        <div class="dialog-subtitle">${brand.category} · national chain sample · ${data.meta.scenario}</div>
+        <div class="dialog-score"><div><span>OTM index</span><strong>${formatIndex(brand.index)}</strong></div><div><span>Priority band</span><strong>${brand.tier}</strong></div><div><span>Estimated annual OTM</span><strong>${formatPhp(brand.estimatedOtm)}</strong></div></div>
         <dl class="detail-grid">
-          <dt>Market signal</dt><dd>${formatInt.format(brand.outlets)} listed outlets in the GAOYAN brand sample</dd>
-          <dt>OTM development</dt><dd>Market sizing complete · integrate Anchor inputs to quantify account opportunity</dd>
-          <dt>Model basis</dt><dd>Original OTM formula combining revenue proxy and Anchor addressable spend</dd>
+          <dt>Listed outlets</dt><dd>${formatInt.format(brand.outlets)} in the GAOYAN Philippines BI brand sample</dd>
+          <dt>OTM per outlet</dt><dd>${formatPhp(category.otmPerOutlet)} per year</dd>
+          <dt>Meals per day</dt><dd>${formatInt.format(category.mealsPerDay)} = baseline ${category.segmentBaseline} × traffic ${category.trafficSignal.toFixed(2)} × location ${category.locationAdjustment.toFixed(2)}</dd>
+          <dt>Revenue proxy</dt><dd>${formatPhp(category.revenueProxyPerOutlet)} per outlet · PHP ${formatInt.format(category.avgPricePhp)} average spend · ${category.operatingDays} days</dd>
+          <dt>Addressable spend</dt><dd>${formatPct2(category.addressableSpendRatio * 100)} = category ratio ${formatPct(category.categorySpendRatio * 100)} × Anchor fit ${category.anchorFit.toFixed(2)}</dd>
           <dt>Application play</dt><dd>${brand.applications.join(" · ")}</dd>
-          <dt>Coverage pathway</dt><dd>Match with Anchor and distributor outlet masters</dd>
-          <dt>Account ownership</dt><dd>Assign through the Anchor sales workflow</dd>
-          <dt>PHP opportunity</dt><dd>Quantify with Anchor sales and product inputs</dd>
+          <dt>Confidence</dt><dd>${category.confidence} · category-level planning assumptions</dd>
         </dl>
-        <div class="next-action"><span>RECOMMENDED NEXT ACTION</span><strong>Validate distributor coverage, match the outlet master, and assign an account owner before converting this rank into a call plan.</strong></div>
+        ${referenceBlock}
+        <div class="next-action"><span>RECOMMENDED NEXT ACTION</span><strong>Validate the price, meal-volume and dairy-wallet assumptions with Anchor sales, operator purchasing and distributor coverage before using the estimate as an account target.</strong></div>
       </div>`;
     const dialog = document.querySelector("#brandDialog");
     if (typeof dialog.showModal === "function") dialog.showModal(); else dialog.setAttribute("open", "");
@@ -219,7 +261,7 @@
 
   function renderFilterSummary() {
     const category = state.category === "All" ? "All categories" : state.category;
-    const tier = state.tier === "All" ? "All market scale bands" : `Scale band ${state.tier}`;
+    const tier = state.tier === "All" ? "All OTM priority bands" : `OTM priority band ${state.tier}`;
     const search = state.search ? ` · Search “${state.search}”` : "";
     document.querySelector("#filterSummary").textContent = `${category} · ${tier}${search}`;
   }
@@ -244,12 +286,15 @@
   function exportTargets() {
     const rows = filteredBrands();
     const escapeCsv = (value) => `"${String(value).replaceAll('"', '""')}"`;
-    const header = ["outlet_rank", "brand", "category", "listed_outlets", "market_scale_index", "scale_band", "recommended_applications", "activation_path"];
-    const lines = rows.map((brand) => [brand.rank, brand.name, brand.category, brand.outlets, formatIndex(brand.index), brand.tier, brand.applications.join(" | "), "Anchor data integration"].map(escapeCsv).join(","));
+    const header = ["otm_rank", "brand", "category", "listed_outlets", "estimated_annual_otm_php", "otm_per_outlet_php", "otm_index", "priority_band", "segment_baseline", "traffic_signal", "location_adjustment", "avg_price_php", "operating_days", "category_spend_ratio", "anchor_fit", "recommended_applications"];
+    const lines = rows.map((brand) => {
+      const category = brand.assumptions;
+      return [brand.rank, brand.name, brand.category, brand.outlets, Math.round(brand.estimatedOtm), Math.round(brand.otmPerOutlet), formatIndex(brand.index), brand.tier, category.segmentBaseline, category.trafficSignal, category.locationAdjustment, category.avgPricePhp, category.operatingDays, category.categorySpendRatio, category.anchorFit, brand.applications.join(" | ")].map(escapeCsv).join(",");
+    });
     const blob = new Blob([[header.join(","), ...lines].join("\n")], { type: "text/csv;charset=utf-8" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "Anchor_PH_priority_brand_opportunities.csv";
+    link.download = "Anchor_PH_OTM_base_case_estimates.csv";
     link.click();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   }
